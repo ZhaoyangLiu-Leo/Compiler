@@ -68,25 +68,79 @@ namespace LexicalAnalyzer
         /// </summary>
         private void compileButton_Click(object sender, EventArgs e)
         {
+            clearDataGridViews();
             codeStr = contentRichTextBox.Text;
             Scanner scanner = new Scanner();
             scanner.analyzeCode(codeStr, out tokenResList, out errorList, out symbolList);
+            //for (int i = 0; i < tokenResList.Count; i++)
+            //{
+            //    Console.WriteLine(tokenResList[i]);
+            //}
+            //Console.WriteLine("*************************************");
+            //for (int i = 0; i < symbolList.Count; i++)
+            //{
+            //    Console.WriteLine(symbolList[i]);
+            //}
+            //Console.WriteLine("*************************************");
+            //for (int i = 0; i < errorList.Count; i++)
+            //{
+            //    Console.WriteLine(errorList[i]);
+            //}
+            this.add2TokenDataGridView();
+            this.add2ErrorDataGridView();
+            this.add2SymbolDataGridList();
+        }
+
+        private void add2TokenDataGridView()
+        {
+
+            int index = 0;
             for (int i = 0; i < tokenResList.Count; i++)
             {
-                Console.WriteLine(tokenResList[i]);
-            }
-            Console.WriteLine("*************************************");
-            for (int i = 0; i < symbolList.Count; i++)
-            {
-                Console.WriteLine(symbolList[i]);
-            }
-            Console.WriteLine("*************************************");
-            for (int i = 0; i < errorList.Count; i++)
-            {
-                Console.WriteLine(errorList[i]);
+                index = tokenDataGridView.Rows.Add();
+                tokenDataGridView.Rows[index].Cells[0].Value = tokenResList[i].Token.ToString();
+                tokenDataGridView.Rows[index].Cells[1].Value = tokenResList[i].TypeNum;
+                tokenDataGridView.Rows[index].Cells[2].Value = tokenResList[i].ClassName;
+                tokenDataGridView.Rows[index].Cells[3].Value = tokenResList[i].LineIndex;
             }
         }
-        
+
+        private void add2ErrorDataGridView()
+        {
+            int index = 0;
+            for (int i = 0; i < errorList.Count; i++)
+            {
+                index = errorDataGridView.Rows.Add();
+                errorDataGridView.Rows[index].Cells[0].Value = errorList[i].ErrorType;
+                errorDataGridView.Rows[index].Cells[1].Value = errorList[i].ErrorWord;
+                errorDataGridView.Rows[index].Cells[2].Value = errorList[i].ErrorLine;
+            }
+        }
+
+        private void add2SymbolDataGridList()
+        {
+            int index = 0;
+            for (int i = 0; i < symbolList.Count; i++)
+            {
+                index = symbolDataGridView.Rows.Add();
+                symbolDataGridView.Rows[index].Cells[0].Value = symbolList[i].SymbolName;
+                symbolDataGridView.Rows[index].Cells[1].Value = symbolList[i].MemIndex;
+                symbolDataGridView.Rows[index].Cells[2].Value = symbolList[i].LineIndex;
+            }
+        }
+
+        private void resetButton_Click(object sender, EventArgs e)
+        {
+            contentRichTextBox.Clear();
+            clearDataGridViews();
+        }
+
+        private void clearDataGridViews()
+        {
+            tokenDataGridView.Rows.Clear();
+            errorDataGridView.Rows.Clear();
+            symbolDataGridView.Rows.Clear();
+        }
         
     }
 }

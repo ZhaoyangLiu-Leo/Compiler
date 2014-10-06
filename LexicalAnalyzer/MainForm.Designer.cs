@@ -32,10 +32,6 @@
             this.contentRichTextBox = new System.Windows.Forms.RichTextBox();
             this.resGroupBox = new System.Windows.Forms.GroupBox();
             this.tokenDataGridView = new System.Windows.Forms.DataGridView();
-            this.token = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.typeNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.className = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lineIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.resetButton = new System.Windows.Forms.Button();
             this.compileButton = new System.Windows.Forms.Button();
             this.codeGroupBox = new System.Windows.Forms.GroupBox();
@@ -46,6 +42,13 @@
             this.errorLine = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.symbolGroupBox = new System.Windows.Forms.GroupBox();
             this.symbolDataGridView = new System.Windows.Forms.DataGridView();
+            this.symbolName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.memIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.symbolIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.token = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.typeNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.className = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lineIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.resGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tokenDataGridView)).BeginInit();
             this.codeGroupBox.SuspendLayout();
@@ -101,28 +104,6 @@
             this.tokenDataGridView.Size = new System.Drawing.Size(336, 306);
             this.tokenDataGridView.TabIndex = 0;
             // 
-            // token
-            // 
-            this.token.HeaderText = "单词";
-            this.token.Name = "token";
-            // 
-            // typeNum
-            // 
-            this.typeNum.HeaderText = "种别码";
-            this.typeNum.Name = "typeNum";
-            this.typeNum.Width = 65;
-            // 
-            // className
-            // 
-            this.className.HeaderText = "类别";
-            this.className.Name = "className";
-            // 
-            // lineIndex
-            // 
-            this.lineIndex.HeaderText = "行号";
-            this.lineIndex.Name = "lineIndex";
-            this.lineIndex.Width = 60;
-            // 
             // resetButton
             // 
             this.resetButton.Location = new System.Drawing.Point(583, 135);
@@ -131,6 +112,7 @@
             this.resetButton.TabIndex = 4;
             this.resetButton.Text = "重置";
             this.resetButton.UseVisualStyleBackColor = true;
+            this.resetButton.Click += new System.EventHandler(this.resetButton_Click);
             // 
             // compileButton
             // 
@@ -207,11 +189,53 @@
             // symbolDataGridView
             // 
             this.symbolDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.symbolDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.symbolName,
+            this.memIndex,
+            this.symbolIndex});
             this.symbolDataGridView.Location = new System.Drawing.Point(26, 20);
             this.symbolDataGridView.Name = "symbolDataGridView";
             this.symbolDataGridView.RowTemplate.Height = 23;
             this.symbolDataGridView.Size = new System.Drawing.Size(336, 143);
             this.symbolDataGridView.TabIndex = 0;
+            // 
+            // symbolName
+            // 
+            this.symbolName.HeaderText = "名称";
+            this.symbolName.Name = "symbolName";
+            // 
+            // memIndex
+            // 
+            this.memIndex.HeaderText = "内存位置";
+            this.memIndex.Name = "memIndex";
+            // 
+            // symbolIndex
+            // 
+            this.symbolIndex.HeaderText = "首次出现行号";
+            this.symbolIndex.Name = "symbolIndex";
+            // 
+            // token
+            // 
+            this.token.HeaderText = "单词";
+            this.token.Name = "token";
+            // 
+            // typeNum
+            // 
+            this.typeNum.HeaderText = "种别码";
+            this.typeNum.Name = "typeNum";
+            this.typeNum.Width = 65;
+            // 
+            // className
+            // 
+            this.className.HeaderText = "类别";
+            this.className.Name = "className";
+            this.className.Width = 80;
+            // 
+            // lineIndex
+            // 
+            this.lineIndex.HeaderText = "行号";
+            this.lineIndex.Name = "lineIndex";
+            this.lineIndex.Width = 60;
             // 
             // MainForm
             // 
@@ -244,10 +268,6 @@
         private System.Windows.Forms.RichTextBox contentRichTextBox;
         private System.Windows.Forms.GroupBox resGroupBox;
         private System.Windows.Forms.DataGridView tokenDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn token;
-        private System.Windows.Forms.DataGridViewTextBoxColumn typeNum;
-        private System.Windows.Forms.DataGridViewTextBoxColumn className;
-        private System.Windows.Forms.DataGridViewTextBoxColumn lineIndex;
         private System.Windows.Forms.Button resetButton;
         private System.Windows.Forms.Button compileButton;
         private System.Windows.Forms.GroupBox codeGroupBox;
@@ -258,6 +278,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn errorType;
         private System.Windows.Forms.DataGridViewTextBoxColumn errorWord;
         private System.Windows.Forms.DataGridViewTextBoxColumn errorLine;
+        private System.Windows.Forms.DataGridViewTextBoxColumn symbolName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn memIndex;
+        private System.Windows.Forms.DataGridViewTextBoxColumn symbolIndex;
+        private System.Windows.Forms.DataGridViewTextBoxColumn token;
+        private System.Windows.Forms.DataGridViewTextBoxColumn typeNum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn className;
+        private System.Windows.Forms.DataGridViewTextBoxColumn lineIndex;
     }
 }
 

@@ -37,13 +37,14 @@ namespace LexicalAnalyzer
 
             while (codeIndex < codeStr.Length)
             {
-                if (codeStr[codeIndex] == '\n')
-                {
-                    lineIndex++;
-                }
+                
                 switch (state)
                 {
                     case 0:
+                        if (codeStr[codeIndex] == '\n')
+                        {
+                            lineIndex++;
+                        }
                         if (isLetter_(codeStr[codeIndex]))
                         {
                             state = 1;
@@ -361,7 +362,11 @@ namespace LexicalAnalyzer
                         }
                         else
                         {
-                            retract(ref codeIndex, ref state, ref endIndex, ref str, codeStr, beginIndex);
+                            //if (codeStr[codeIndex] == '\n')
+                            //{
+                            //    lineIndex--;
+                            //}
+                            retract(ref codeIndex, ref state, ref endIndex, ref str, codeStr, beginIndex);                       
                             add2TokenResList(str, "_", 314, "运算符", lineIndex);
                         }
                         break;
