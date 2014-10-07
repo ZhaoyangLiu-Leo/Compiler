@@ -169,7 +169,7 @@ namespace LexicalAnalyzer
                         add2TokenResList("STR", str, 351, "字符串常量", lineIndex);
                         break;
 
-                    //5-7匹配字符常量
+                    //5-7、52匹配字符常量
                     case 5:
                         if (codeStr[codeIndex] == '\\')
                         {
@@ -184,15 +184,43 @@ namespace LexicalAnalyzer
                         }
                         else if (codeStr[codeIndex] == '\'')
                         {
+                            state = 0;
+                            endIndex = codeIndex;
+                            str = codeStr.Substring(beginIndex, endIndex - beginIndex + 1);
+                            add2ErrorList("空字符常数", str, lineIndex);
+                        }
+                        else
+                        {
                             state = 7;
                         }
                         break;
                     case 6:
-                        state = 5;
+                        if (isEscape(codeStr[codeIndex]))
+                        {
+                            state = 7;
+                        }
+                        else
+                        {
+                            state = 0;
+                            endIndex = codeIndex;
+                            codeIndex--;
+                            str = codeStr.Substring(beginIndex, endIndex - beginIndex + 1);
+                            add2ErrorList("无效的字符常数", str, lineIndex);
+                        }
                         break;
                     case 7:
-                        retract(ref codeIndex, ref state, ref endIndex, ref str, codeStr, beginIndex);
-                        add2TokenResList("CHAR", str, 350, "字符型常量", lineIndex);
+                        if (codeStr[codeIndex] == '\'')
+                        {
+                            state = 52;
+                        }
+                        else
+                        {
+                            state = 0;
+                            endIndex = codeIndex;
+                            codeIndex--;
+                            str = codeStr.Substring(beginIndex, endIndex - beginIndex + 1);
+                            add2ErrorList("无效的字符常数", str, lineIndex);
+                        }
                         break;
 
                     //8->9匹配8进制整数
@@ -348,7 +376,7 @@ namespace LexicalAnalyzer
                             endIndex = codeIndex;
                             codeIndex--;
                             str = codeStr.Substring(beginIndex, endIndex - beginIndex + 1);
-                            add2ErrorList("无效的科学技术法", str, lineIndex);
+                            add2ErrorList("无效的科学计数法", str, lineIndex);
                         }
                         break;
 
@@ -652,7 +680,13 @@ namespace LexicalAnalyzer
                     case 51:
                         retract(ref codeIndex, ref state, ref endIndex, ref str, codeStr, beginIndex);
                         add2TokenResList(str, "_", 329, "运算符", lineIndex);
-                        break;                       
+                        break;      
+ 
+                    //由于后续字符常量状态机的修改，导致52状态为字符常量的接收状态
+                    case 52:
+                        retract(ref codeIndex, ref state, ref endIndex, ref str, codeStr, beginIndex);
+                        add2TokenResList("CHAR", str, 350, "字符型常量", lineIndex);
+                        break;
                 }
                 codeIndex++;
 
@@ -833,14 +867,17 @@ namespace LexicalAnalyzer
         }
 
         /// <summary>
-        /// 判断字符是否为特殊字符
+        /// 判断输入字符是否是转义字符
         /// </summary>
-        private bool isSkip(char c)
+        private bool isEscape(char c)
         {
             bool flag = false;
-            if (c == '\n' || c == ' ' || c == '\r' || c == '\t')
+            for (int i = 0; i < ConstTable.escapeChars.Length; i++)
             {
-                flag = true;
+                if (c.Equals(ConstTable.escapeChars[i]))
+                {
+                    flag = true;
+                }
             }
             return flag;
         }
