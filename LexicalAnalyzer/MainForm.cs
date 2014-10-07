@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -46,7 +47,7 @@ namespace LexicalAnalyzer
             indexRichTextBox.Clear();       //清空行号
 
             //获取第一个可见的字符的位置和行号
-            Point pos = new Point(0, 0);
+            Point pos = new Point(1, 1);
             int firstIndex = this.contentRichTextBox.GetCharIndexFromPosition(pos);
             int firstLine = this.contentRichTextBox.GetLineFromCharIndex(firstIndex);
 
@@ -128,18 +129,51 @@ namespace LexicalAnalyzer
                 symbolDataGridView.Rows[index].Cells[2].Value = symbolList[i].LineIndex;
             }
         }
-
+        /// <summary>
+        /// 重置按钮处理函数
+        /// </summary>
         private void resetButton_Click(object sender, EventArgs e)
         {
             contentRichTextBox.Clear();
             clearDataGridViews();
         }
 
+        /// <summary>
+        ///清空dataGridView控件 
+        /// </summary>
         private void clearDataGridViews()
         {
             tokenDataGridView.Rows.Clear();
             errorDataGridView.Rows.Clear();
             symbolDataGridView.Rows.Clear();
+        }
+
+        /// <summary>
+        /// 导入按钮处理函数
+        /// </summary>
+        private void importButton_Click(object sender, EventArgs e)
+        {
+            string fileName = "";
+            
+            OpenFileDialog fd = new OpenFileDialog();
+            fd.Filter = "C 文件 (*.c)|*.c";
+            fd.RestoreDirectory = true;
+            if (fd.ShowDialog() == DialogResult.OK)
+            {
+                fileName = fd.FileName;
+                try
+                {
+                    StreamReader objReader = new StreamReader(fileName);
+                    string programCode = objReader.ReadToEnd();
+                    contentRichTextBox.Text = programCode;
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show("文件打开异常");
+                    return;
+                }
+            }
+
         }
         
     }

@@ -32,6 +32,10 @@
             this.contentRichTextBox = new System.Windows.Forms.RichTextBox();
             this.resGroupBox = new System.Windows.Forms.GroupBox();
             this.tokenDataGridView = new System.Windows.Forms.DataGridView();
+            this.token = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.typeNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.className = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lineIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.resetButton = new System.Windows.Forms.Button();
             this.compileButton = new System.Windows.Forms.Button();
             this.codeGroupBox = new System.Windows.Forms.GroupBox();
@@ -45,10 +49,7 @@
             this.symbolName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.memIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.symbolIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.token = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.typeNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.className = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lineIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.importButton = new System.Windows.Forms.Button();
             this.resGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tokenDataGridView)).BeginInit();
             this.codeGroupBox.SuspendLayout();
@@ -104,9 +105,32 @@
             this.tokenDataGridView.Size = new System.Drawing.Size(336, 306);
             this.tokenDataGridView.TabIndex = 0;
             // 
+            // token
+            // 
+            this.token.HeaderText = "单词";
+            this.token.Name = "token";
+            // 
+            // typeNum
+            // 
+            this.typeNum.HeaderText = "种别码";
+            this.typeNum.Name = "typeNum";
+            this.typeNum.Width = 65;
+            // 
+            // className
+            // 
+            this.className.HeaderText = "类别";
+            this.className.Name = "className";
+            this.className.Width = 80;
+            // 
+            // lineIndex
+            // 
+            this.lineIndex.HeaderText = "行号";
+            this.lineIndex.Name = "lineIndex";
+            this.lineIndex.Width = 60;
+            // 
             // resetButton
             // 
-            this.resetButton.Location = new System.Drawing.Point(583, 135);
+            this.resetButton.Location = new System.Drawing.Point(583, 195);
             this.resetButton.Name = "resetButton";
             this.resetButton.Size = new System.Drawing.Size(75, 23);
             this.resetButton.TabIndex = 4;
@@ -116,7 +140,7 @@
             // 
             // compileButton
             // 
-            this.compileButton.Location = new System.Drawing.Point(583, 220);
+            this.compileButton.Location = new System.Drawing.Point(583, 286);
             this.compileButton.Name = "compileButton";
             this.compileButton.Size = new System.Drawing.Size(75, 23);
             this.compileButton.TabIndex = 5;
@@ -214,34 +238,22 @@
             this.symbolIndex.HeaderText = "首次出现行号";
             this.symbolIndex.Name = "symbolIndex";
             // 
-            // token
+            // importButton
             // 
-            this.token.HeaderText = "单词";
-            this.token.Name = "token";
-            // 
-            // typeNum
-            // 
-            this.typeNum.HeaderText = "种别码";
-            this.typeNum.Name = "typeNum";
-            this.typeNum.Width = 65;
-            // 
-            // className
-            // 
-            this.className.HeaderText = "类别";
-            this.className.Name = "className";
-            this.className.Width = 80;
-            // 
-            // lineIndex
-            // 
-            this.lineIndex.HeaderText = "行号";
-            this.lineIndex.Name = "lineIndex";
-            this.lineIndex.Width = 60;
+            this.importButton.Location = new System.Drawing.Point(583, 104);
+            this.importButton.Name = "importButton";
+            this.importButton.Size = new System.Drawing.Size(75, 23);
+            this.importButton.TabIndex = 10;
+            this.importButton.Text = "导入";
+            this.importButton.UseVisualStyleBackColor = true;
+            this.importButton.Click += new System.EventHandler(this.importButton_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1082, 577);
+            this.Controls.Add(this.importButton);
             this.Controls.Add(this.symbolGroupBox);
             this.Controls.Add(this.errorGroupBox);
             this.Controls.Add(this.codeGroupBox);
@@ -285,6 +297,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn typeNum;
         private System.Windows.Forms.DataGridViewTextBoxColumn className;
         private System.Windows.Forms.DataGridViewTextBoxColumn lineIndex;
+        private System.Windows.Forms.Button importButton;
     }
 }
 

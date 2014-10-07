@@ -24,16 +24,16 @@ namespace LexicalAnalyzer
 
         public void analyzeCode(string programStr, out List<TokenResult> outTokenResList, out List<Error> outErrorList, out List<Symbol> outSymbolList)
         {
-            int beginIndex = 0;
-            int endIndex = 0;
-            int state = 0;
-            int codeIndex = 0;
-            int lineIndex = 1;
+            int beginIndex = 0;     //词素的开始下标
+            int endIndex = 0;       //词素的结束下标
+            int state = 0;          //记录状态机的当前状态
+            int codeIndex = 0;      //代码下标
+            int lineIndex = 1;      //行号
             string str = "";
 
             string codeStr = programStr;
             this.recognationNote(codeStr);
-            codeStr = this.cutNote(codeStr) + "$";
+            codeStr = this.cutNote(codeStr) + "$";      //加上一个伪尾，以保证状态机的识别正确
 
             while (codeIndex < codeStr.Length)
             {
@@ -119,10 +119,14 @@ namespace LexicalAnalyzer
                         }
                         beginIndex = codeIndex;
                         break;
+
+                    //1 匹配标识符
                     case 1:
+                        
                         if (!isLetter_(codeStr[codeIndex]) && !isDigit(codeStr[codeIndex]))
                         {
                             retract(ref codeIndex, ref state, ref endIndex, ref str, codeStr, beginIndex);
+                            //判断是否为关键字
                             int flag = isKeyWord(str);
                             if (flag < 0)
                             {
@@ -135,7 +139,10 @@ namespace LexicalAnalyzer
                             }
                         }
                         break;
+
+                    //2-4匹配字符串常量
                     case 2:
+                        //匹配字符串常量
                         if (codeStr[codeIndex] == '\\')
                         {
                             state = 3;
@@ -153,12 +160,16 @@ namespace LexicalAnalyzer
                         }
                         break;
                     case 3:
+                        //过滤转义字符
                         state = 2;
                         break;
                     case 4:
+                        //接收字符串常量，添加到相应的List中
                         retract(ref codeIndex, ref state, ref endIndex, ref str, codeStr, beginIndex);
                         add2TokenResList("STR", str, 351, "字符串常量", lineIndex);
                         break;
+
+                    //5-7匹配字符常量
                     case 5:
                         if (codeStr[codeIndex] == '\\')
                         {
@@ -183,6 +194,8 @@ namespace LexicalAnalyzer
                         retract(ref codeIndex, ref state, ref endIndex, ref str, codeStr, beginIndex);
                         add2TokenResList("CHAR", str, 350, "字符型常量", lineIndex);
                         break;
+
+                    //8->9匹配8进制整数
                     case 8:
                         if (isOne2Seven(codeStr[codeIndex]))
                         {
@@ -209,6 +222,8 @@ namespace LexicalAnalyzer
                             add2TokenResList("INT8", str, 348, "8进制整型常量", lineIndex);
                         }
                         break;
+
+                    //8->10->11匹配16进制整数
                     case 10:
                         if ((codeStr[codeIndex] >= '1' && codeStr[codeIndex] <= '9') || (codeStr[codeIndex] >= 'a' && codeStr[codeIndex] <= 'f'))
                         {
@@ -230,6 +245,8 @@ namespace LexicalAnalyzer
                             add2TokenResList("INT16", str, 347, "16进制整型常量", lineIndex);
                         }
                         break;
+
+                    //8->12->13匹配浮点数
                     case 12:
                         if (isDigit(codeStr[codeIndex]))
                         {
@@ -251,6 +268,8 @@ namespace LexicalAnalyzer
                             add2TokenResList("FlOAT", str, 349, "浮点型常量", lineIndex);
                         }
                         break;
+
+                    //14匹配整数，14->15->12->13匹配浮点数
                     case 14:
                         if (isDigit(codeStr[codeIndex]))
                         {
@@ -266,6 +285,8 @@ namespace LexicalAnalyzer
                             add2TokenResList("INT10", str, 346, "整型常量", lineIndex);
                         }
                         break;
+
+                    //15匹配整数
                     case 15:
                         if (codeStr[codeIndex] == '.')
                         {
@@ -277,6 +298,8 @@ namespace LexicalAnalyzer
                             add2TokenResList("INT10", str, 346, "整型常量", lineIndex);
                         }
                         break;
+
+                    //14->16->17->18->19->20，匹配科学计数法
                     case 16:
                         if (isDigit(codeStr[codeIndex]))
                         {
@@ -291,6 +314,8 @@ namespace LexicalAnalyzer
                             add2ErrorList("无效的浮点数", str, lineIndex);
                         }
                         break;
+
+                    //匹配浮点数
                     case 17:
                         if (codeStr[codeIndex] == 'e')
                         {
@@ -307,6 +332,7 @@ namespace LexicalAnalyzer
                             add2TokenResList("FLOAT", str, 349, "浮点型常量", lineIndex);
                         }
                         break;
+
                     case 18:
                         if (isDigit(codeStr[codeIndex]))
                         {
@@ -325,6 +351,7 @@ namespace LexicalAnalyzer
                             add2ErrorList("无效的科学技术法", str, lineIndex);
                         }
                         break;
+
                     case 19:
                         if (isOne2Nine(codeStr[codeIndex]))
                         {
@@ -339,6 +366,8 @@ namespace LexicalAnalyzer
                             add2ErrorList("无效的科学计数法", str, lineIndex);
                         }
                         break;
+
+                    //接收科学计数法
                     case 20:
                         if (isDigit(codeStr[codeIndex]))
                         {
@@ -351,6 +380,8 @@ namespace LexicalAnalyzer
                             add2TokenResList("FLOAT", str, 346, "浮点数常量", lineIndex);
                         }
                         break;
+
+                    //21-23匹配<<, <=
                     case 21:
                         if (codeStr[codeIndex] == '<')
                         {
@@ -362,22 +393,22 @@ namespace LexicalAnalyzer
                         }
                         else
                         {
-                            //if (codeStr[codeIndex] == '\n')
-                            //{
-                            //    lineIndex--;
-                            //}
                             retract(ref codeIndex, ref state, ref endIndex, ref str, codeStr, beginIndex);                       
                             add2TokenResList(str, "_", 314, "运算符", lineIndex);
                         }
                         break;
+
                     case 22:
                         retract(ref codeIndex, ref state, ref endIndex, ref str, codeStr, beginIndex);
                         add2TokenResList(str, "_", 312, "运算符", lineIndex);
                         break;
+                        
                     case 23:
                         retract(ref codeIndex, ref state, ref endIndex, ref str, codeStr, beginIndex);
                         add2TokenResList(str, "_", 315, "运算符", lineIndex);
                         break;
+
+                    //24-26匹配>>, >=
                     case 24:
                         if (codeStr[codeIndex] == '>')
                         {
@@ -401,6 +432,8 @@ namespace LexicalAnalyzer
                         retract(ref codeIndex, ref state, ref endIndex, ref str, codeStr, beginIndex);
                         add2TokenResList(str, "_", 317, "运算符", lineIndex);
                         break;
+
+                    //27-28匹配=, ==
                     case 27:
                         if (codeStr[codeIndex] == '=')
                         {
@@ -416,6 +449,8 @@ namespace LexicalAnalyzer
                         retract(ref codeIndex, ref state, ref endIndex, ref str, codeStr, beginIndex);
                         add2TokenResList(str, "_", 319, "运算符", lineIndex);
                         break;
+
+                    //29-30匹配!, !=
                     case 29:
                         if (codeStr[codeIndex] == '=')
                         {
@@ -431,6 +466,8 @@ namespace LexicalAnalyzer
                         retract(ref codeIndex, ref state, ref endIndex, ref str, codeStr, beginIndex);
                         add2TokenResList(str, "_", 342, "运算符", lineIndex);
                         break;
+
+                    //31-33匹配|, ||, |=
                     case 31:
                         if (codeStr[codeIndex] == '|')
                         {
@@ -447,14 +484,18 @@ namespace LexicalAnalyzer
                             break;
                         }
                         break;
+
                     case 32:
                         retract(ref codeIndex, ref state, ref endIndex, ref str, codeStr, beginIndex);
                         add2TokenResList(str, "_", 321, "运算符", lineIndex);
                         break;
+
                     case 33:
                         retract(ref codeIndex, ref state, ref endIndex, ref str, codeStr, beginIndex);
                         add2TokenResList(str, "_", 322, "运算符", lineIndex);
                         break;
+
+                    //34-35匹配^, ^=
                     case 34:
                         if (codeStr[codeIndex] == '=')
                         {
@@ -470,6 +511,8 @@ namespace LexicalAnalyzer
                         retract(ref codeIndex, ref state, ref endIndex, ref str, codeStr, beginIndex);
                         add2TokenResList(str, "_", 324, "运算符", lineIndex);
                         break;
+
+                    //36-38匹配&, &&, &=
                     case 36:
                         if (codeStr[codeIndex] == '&')
                         {
@@ -485,14 +528,18 @@ namespace LexicalAnalyzer
                             add2TokenResList(str, "_", 325, "运算符", lineIndex);
                         }
                         break;
+
                     case 37:
                         retract(ref codeIndex, ref state, ref endIndex, ref str, codeStr, beginIndex);
                         add2TokenResList(str, "_", 326, "运算符", lineIndex);
                         break;
+
                     case 38:
                         retract(ref codeIndex, ref state, ref endIndex, ref str, codeStr, beginIndex);
                         add2TokenResList(str, "_", 327, "运算符", lineIndex);
                         break;
+
+                    //39-41匹配+, ++, +=
                     case 39:
                         if (codeStr[codeIndex] == '+')
                         {
@@ -508,14 +555,18 @@ namespace LexicalAnalyzer
                             add2TokenResList(str, "_", 330, "运算符", lineIndex);
                         }
                         break;
+
                     case 40:
                         retract(ref codeIndex, ref state, ref endIndex, ref str, codeStr, beginIndex);
                         add2TokenResList(str, "_", 331, "运算符", lineIndex);
                         break;
+
                     case 41:
                         retract(ref codeIndex, ref state, ref endIndex, ref str, codeStr, beginIndex);
                         add2TokenResList(str, "_", 332, "运算符", lineIndex);
                         break;
+
+                    //42-45匹配--, -=, ->
                     case 42:
                         if (codeStr[codeIndex] == '-')
                         {
@@ -535,18 +586,23 @@ namespace LexicalAnalyzer
                             add2TokenResList(str, "_", 333, "运算符", lineIndex);
                         }
                         break;
+
                     case 43:
                         retract(ref codeIndex, ref state, ref endIndex, ref str, codeStr, beginIndex);
                         add2TokenResList(str, "_", 334, "运算符", lineIndex);
                         break;
+
                     case 44:
                         retract(ref codeIndex, ref state, ref endIndex, ref str, codeStr, beginIndex);
                         add2TokenResList(str, "_", 335, "运算符", lineIndex);
                         break;
+
                     case 45:
                         retract(ref codeIndex, ref state, ref endIndex, ref str, codeStr, beginIndex);
                         add2TokenResList(str, "_", 336, "运算符", lineIndex);
                         break;
+
+                    //46-47匹配/, /=
                     case 46:
                         if (codeStr[codeIndex] == '=')
                         {
@@ -562,6 +618,8 @@ namespace LexicalAnalyzer
                         retract(ref codeIndex, ref state, ref endIndex, ref str, codeStr, beginIndex);
                         add2TokenResList(str, "_", 338, "运算符", lineIndex);
                         break;
+
+                    //48-49匹配*, *=
                     case 48:
                         if (codeStr[codeIndex] == '=')
                         {
@@ -573,10 +631,13 @@ namespace LexicalAnalyzer
                             add2TokenResList(str, "_", 339, "运算符", lineIndex);
                         }
                         break;
+
                     case 49:
                         retract(ref codeIndex, ref state, ref endIndex, ref str, codeStr, beginIndex);
                         add2TokenResList(str, "_", 340, "运算符", lineIndex);
                         break;
+
+                    //50-51匹配%, %=
                     case 50:
                         if (codeStr[codeIndex] == '=')
                         {
@@ -621,11 +682,6 @@ namespace LexicalAnalyzer
         /// <summary>
         /// 添加到tokenResList中
         /// </summary>
-        /// <param name="tokenName"></param>
-        /// <param name="tokenValue"></param>
-        /// <param name="typeNum"></param>
-        /// <param name="className"></param>
-        /// <param name="lineIndex"></param>
         private void add2TokenResList(string tokenName, string tokenValue, int typeNum, string className, int lineIndex)
         {
             Token tk = new Token(tokenName, tokenValue);
@@ -633,9 +689,13 @@ namespace LexicalAnalyzer
             tokenResList.Add(tr);
         }
 
+        /// <summary>
+        /// 添加到symbolList
+        /// </summary>
         private void add2SymbolList(string symbolName, int lineIndex)
         {
             bool flag = false;
+            //判断传入的标识符是否已经在符号表中
             foreach (Symbol symbol in symbolList)
             {
                 if (symbolName.Equals(symbol.SymbolName))
@@ -644,12 +704,14 @@ namespace LexicalAnalyzer
                     break;
                 }
             }
+            //不在符号表中，则添加到符号表
             if (!flag)
             {
                 symbolList.Add(new Symbol(symbolName, memIndex, lineIndex));
                 this.memIndex++;
             }
         }
+
 
         private void add2ErrorList(string errorType, string errorWord, int errorLine)
         {
@@ -833,6 +895,7 @@ namespace LexicalAnalyzer
                     case 4:
                         stateIndex = 0;
                         endIndex = i;
+                        //截取注释内容，以便后续替换注释内容
                         noteList.Add(codeStr.Substring(beginIndex, endIndex - beginIndex));
                         break;
                     case 5:
@@ -844,6 +907,7 @@ namespace LexicalAnalyzer
                     case 6:
                         stateIndex = 0;
                         endIndex = i - 1;
+                        //截取注释内容，以便后续替换注释内容
                         noteList.Add(codeStr.Substring(beginIndex, endIndex - beginIndex));
                         break;
                 }
@@ -862,7 +926,7 @@ namespace LexicalAnalyzer
         private string cutNote(string codeStr)
         {
             string replaceStr;
-
+            //将注释替换为相应的\n个数
             for (int i = 0; i < noteList.Count; i++)
             {
                 replaceStr = "";
