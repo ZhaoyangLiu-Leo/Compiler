@@ -32,10 +32,6 @@
             this.contentRichTextBox = new System.Windows.Forms.RichTextBox();
             this.resGroupBox = new System.Windows.Forms.GroupBox();
             this.tokenDataGridView = new System.Windows.Forms.DataGridView();
-            this.token = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.typeNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.className = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lineIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.resetButton = new System.Windows.Forms.Button();
             this.compileButton = new System.Windows.Forms.Button();
             this.codeGroupBox = new System.Windows.Forms.GroupBox();
@@ -50,6 +46,10 @@
             this.memIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.symbolIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.importButton = new System.Windows.Forms.Button();
+            this.token = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.typeNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.className = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lineIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.resGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tokenDataGridView)).BeginInit();
             this.codeGroupBox.SuspendLayout();
@@ -104,29 +104,6 @@
             this.tokenDataGridView.RowTemplate.Height = 23;
             this.tokenDataGridView.Size = new System.Drawing.Size(336, 306);
             this.tokenDataGridView.TabIndex = 0;
-            // 
-            // token
-            // 
-            this.token.HeaderText = "单词";
-            this.token.Name = "token";
-            // 
-            // typeNum
-            // 
-            this.typeNum.HeaderText = "种别码";
-            this.typeNum.Name = "typeNum";
-            this.typeNum.Width = 65;
-            // 
-            // className
-            // 
-            this.className.HeaderText = "类别";
-            this.className.Name = "className";
-            this.className.Width = 80;
-            // 
-            // lineIndex
-            // 
-            this.lineIndex.HeaderText = "行号";
-            this.lineIndex.Name = "lineIndex";
-            this.lineIndex.Width = 60;
             // 
             // resetButton
             // 
@@ -248,6 +225,29 @@
             this.importButton.UseVisualStyleBackColor = true;
             this.importButton.Click += new System.EventHandler(this.importButton_Click);
             // 
+            // token
+            // 
+            this.token.HeaderText = "Token";
+            this.token.Name = "token";
+            // 
+            // typeNum
+            // 
+            this.typeNum.HeaderText = "种别码";
+            this.typeNum.Name = "typeNum";
+            this.typeNum.Width = 65;
+            // 
+            // className
+            // 
+            this.className.HeaderText = "类别";
+            this.className.Name = "className";
+            this.className.Width = 80;
+            // 
+            // lineIndex
+            // 
+            this.lineIndex.HeaderText = "行号";
+            this.lineIndex.Name = "lineIndex";
+            this.lineIndex.Width = 60;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -293,11 +293,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn symbolName;
         private System.Windows.Forms.DataGridViewTextBoxColumn memIndex;
         private System.Windows.Forms.DataGridViewTextBoxColumn symbolIndex;
+        private System.Windows.Forms.Button importButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn token;
         private System.Windows.Forms.DataGridViewTextBoxColumn typeNum;
         private System.Windows.Forms.DataGridViewTextBoxColumn className;
         private System.Windows.Forms.DataGridViewTextBoxColumn lineIndex;
-        private System.Windows.Forms.Button importButton;
     }
 }
 
