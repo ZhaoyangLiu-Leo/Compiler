@@ -5,6 +5,9 @@ using System.Text;
 
 namespace LexicalAnalyzer
 {
+    /// <summary>
+    /// 用来记录查询表
+    /// </summary>
     class ConstTable
     {
         public static string[] keyWords = { "auto", "break", "case", "char", "const", "continue", "default", "do", "double", "else", 

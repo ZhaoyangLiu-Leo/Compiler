@@ -5,6 +5,9 @@ using System.Text;
 
 namespace LexicalAnalyzer
 {
+    /// <summary>
+    /// tokenResult类，用来记录token识别的结果
+    /// </summary>
     class TokenResult
     {
         private Token token;

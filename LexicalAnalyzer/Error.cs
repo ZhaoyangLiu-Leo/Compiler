@@ -5,6 +5,9 @@ using System.Text;
 
 namespace LexicalAnalyzer
 {
+    /// <summary>
+    /// error类，用来记录错误信息
+    /// </summary>
     class Error
     {
         private string errorType;

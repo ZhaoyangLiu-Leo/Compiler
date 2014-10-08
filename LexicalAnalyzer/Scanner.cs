@@ -22,6 +22,9 @@ namespace LexicalAnalyzer
             memIndex = 0;
         }
 
+        /// <summary>
+        /// 分析代码，生成分析结果
+        /// </summary>
         public void analyzeCode(string programStr, out List<TokenResult> outTokenResList, out List<Error> outErrorList, out List<Symbol> outSymbolList)
         {
             int beginIndex = 0;     //词素的开始下标

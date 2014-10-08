@@ -5,6 +5,9 @@ using System.Text;
 
 namespace LexicalAnalyzer
 {
+    /// <summary>
+    /// symbol类，用来记录符号表
+    /// </summary>
     class Symbol
     {
         private string symbolName;          //符号名称
