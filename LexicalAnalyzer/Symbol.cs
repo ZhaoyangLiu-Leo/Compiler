@@ -10,14 +10,14 @@ namespace LexicalAnalyzer
     /// </summary>
     class Symbol
     {
-        private string symbolName;          //符号名称
         private int memIndex;               //内存位置
+        private string symbolName;          //符号名称
         private int lineIndex;              //首次出现行号
 
-        public Symbol(string symbolName, int memIndex, int lineIndex)
+        public Symbol(int index, string symbolName, int lineIndex)
         {
+            this.memIndex = index;
             this.symbolName = symbolName;
-            this.memIndex = memIndex;
             this.lineIndex = lineIndex;
         }
         

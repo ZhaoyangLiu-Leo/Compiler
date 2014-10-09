@@ -10,17 +10,28 @@ namespace LexicalAnalyzer
     /// </summary>
     class TokenResult
     {
+        private string word;
         private Token token;
         private int typeNum;
         private string className;
         private int lineIndex;
 
-        public TokenResult(Token token, int typeNum, string className, int lineIndex)
+        public TokenResult(string word, Token token, int typeNum, string className, int lineIndex)
         {
+            this.word = word;
             this.token = token;
             this.typeNum = typeNum;
             this.className = className;
             this.lineIndex = lineIndex;
+        }
+
+        /// <summary>
+        /// 属性访问器，set or get 单词
+        /// </summary>
+        public string Word
+        {
+            get { return word; }
+            set { word = value; }
         }
 
         /// <summary>
@@ -61,7 +72,7 @@ namespace LexicalAnalyzer
 
         public override string ToString()
         {
-            return "(" + token.ToString() + ", " + typeNum + ", " + className + ", " + lineIndex + ")";
+            return "(" + word + ", " + token.ToString() + ", " + typeNum + ", " + className + ", " + lineIndex + ")";
         }
 
     }
