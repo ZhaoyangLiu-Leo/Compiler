@@ -92,6 +92,9 @@ namespace LexicalAnalyzer
             this.add2SymbolDataGridList();
         }
 
+        /// <summary>
+        /// 将token识别的结果添加到相应的表格 
+        /// </summary>
         private void add2TokenDataGridView()
         {
 
@@ -99,14 +102,17 @@ namespace LexicalAnalyzer
             for (int i = 0; i < tokenResList.Count; i++)
             {
                 index = tokenDataGridView.Rows.Add();
-
-                tokenDataGridView.Rows[index].Cells[0].Value = tokenResList[i].Token.ToString();
-                tokenDataGridView.Rows[index].Cells[1].Value = tokenResList[i].TypeNum;
-                tokenDataGridView.Rows[index].Cells[2].Value = tokenResList[i].ClassName;
-                tokenDataGridView.Rows[index].Cells[3].Value = tokenResList[i].LineIndex;
+                tokenDataGridView.Rows[index].Cells[0].Value = tokenResList[i].Word;
+                tokenDataGridView.Rows[index].Cells[1].Value = tokenResList[i].Token.ToString();
+                tokenDataGridView.Rows[index].Cells[2].Value = tokenResList[i].TypeNum;
+                tokenDataGridView.Rows[index].Cells[3].Value = tokenResList[i].ClassName;
+                tokenDataGridView.Rows[index].Cells[4].Value = tokenResList[i].LineIndex;
             }
         }
 
+        /// <summary>
+        /// 将错误识别结果添加到相应的表格
+        /// </summary>
         private void add2ErrorDataGridView()
         {
             int index = 0;
@@ -119,6 +125,9 @@ namespace LexicalAnalyzer
             }
         }
 
+        /// <summary>
+        /// 将符号表识别的结果添加到相应的表格
+        /// </summary>
         private void add2SymbolDataGridList()
         {
             int index = 0;

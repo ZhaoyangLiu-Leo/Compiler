@@ -16,8 +16,9 @@ namespace LexicalAnalyzer
         private string className;
         private int lineIndex;
 
-        public TokenResult(Token token, int typeNum, string className, int lineIndex)
+        public TokenResult(string word, Token token, int typeNum, string className, int lineIndex)
         {
+            this.word = word;
             this.token = token;
             this.typeNum = typeNum;
             this.className = className;
@@ -71,7 +72,7 @@ namespace LexicalAnalyzer
 
         public override string ToString()
         {
-            return "(" + token.ToString() + ", " + typeNum + ", " + className + ", " + lineIndex + ")";
+            return "(" + word + ", " + token.ToString() + ", " + typeNum + ", " + className + ", " + lineIndex + ")";
         }
 
     }
