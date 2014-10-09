@@ -10,6 +10,7 @@ namespace LexicalAnalyzer
     /// </summary>
     class TokenResult
     {
+        private string word;
         private Token token;
         private int typeNum;
         private string className;
@@ -21,6 +22,15 @@ namespace LexicalAnalyzer
             this.typeNum = typeNum;
             this.className = className;
             this.lineIndex = lineIndex;
+        }
+
+        /// <summary>
+        /// 属性访问器，set or get 单词
+        /// </summary>
+        public string Word
+        {
+            get { return word; }
+            set { word = value; }
         }
 
         /// <summary>

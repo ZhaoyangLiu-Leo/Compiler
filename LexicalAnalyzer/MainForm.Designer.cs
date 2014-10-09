@@ -42,10 +42,11 @@
             this.errorLine = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.symbolGroupBox = new System.Windows.Forms.GroupBox();
             this.symbolDataGridView = new System.Windows.Forms.DataGridView();
-            this.symbolName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.memIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.symbolIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.importButton = new System.Windows.Forms.Button();
+            this.index = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.symbolName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.symbolIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Word = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.token = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.typeNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.className = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -86,7 +87,7 @@
             this.resGroupBox.Controls.Add(this.tokenDataGridView);
             this.resGroupBox.Location = new System.Drawing.Point(669, 33);
             this.resGroupBox.Name = "resGroupBox";
-            this.resGroupBox.Size = new System.Drawing.Size(381, 345);
+            this.resGroupBox.Size = new System.Drawing.Size(401, 345);
             this.resGroupBox.TabIndex = 3;
             this.resGroupBox.TabStop = false;
             this.resGroupBox.Text = "词法分析结果";
@@ -95,14 +96,15 @@
             // 
             this.tokenDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tokenDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Word,
             this.token,
             this.typeNum,
             this.className,
             this.lineIndex});
-            this.tokenDataGridView.Location = new System.Drawing.Point(26, 20);
+            this.tokenDataGridView.Location = new System.Drawing.Point(6, 20);
             this.tokenDataGridView.Name = "tokenDataGridView";
             this.tokenDataGridView.RowTemplate.Height = 23;
-            this.tokenDataGridView.Size = new System.Drawing.Size(336, 306);
+            this.tokenDataGridView.Size = new System.Drawing.Size(389, 306);
             this.tokenDataGridView.TabIndex = 0;
             // 
             // resetButton
@@ -191,29 +193,14 @@
             // 
             this.symbolDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.symbolDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.index,
             this.symbolName,
-            this.memIndex,
             this.symbolIndex});
             this.symbolDataGridView.Location = new System.Drawing.Point(26, 20);
             this.symbolDataGridView.Name = "symbolDataGridView";
             this.symbolDataGridView.RowTemplate.Height = 23;
             this.symbolDataGridView.Size = new System.Drawing.Size(336, 143);
             this.symbolDataGridView.TabIndex = 0;
-            // 
-            // symbolName
-            // 
-            this.symbolName.HeaderText = "名称";
-            this.symbolName.Name = "symbolName";
-            // 
-            // memIndex
-            // 
-            this.memIndex.HeaderText = "内存位置";
-            this.memIndex.Name = "memIndex";
-            // 
-            // symbolIndex
-            // 
-            this.symbolIndex.HeaderText = "首次出现行号";
-            this.symbolIndex.Name = "symbolIndex";
             // 
             // importButton
             // 
@@ -225,10 +212,32 @@
             this.importButton.UseVisualStyleBackColor = true;
             this.importButton.Click += new System.EventHandler(this.importButton_Click);
             // 
+            // index
+            // 
+            this.index.HeaderText = "序号";
+            this.index.Name = "index";
+            // 
+            // symbolName
+            // 
+            this.symbolName.HeaderText = "名称";
+            this.symbolName.Name = "symbolName";
+            // 
+            // symbolIndex
+            // 
+            this.symbolIndex.HeaderText = "首次出现行号";
+            this.symbolIndex.Name = "symbolIndex";
+            // 
+            // Word
+            // 
+            this.Word.HeaderText = "单词";
+            this.Word.Name = "Word";
+            this.Word.Width = 80;
+            // 
             // token
             // 
             this.token.HeaderText = "Token";
             this.token.Name = "token";
+            this.token.Width = 80;
             // 
             // typeNum
             // 
@@ -290,10 +299,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn errorType;
         private System.Windows.Forms.DataGridViewTextBoxColumn errorWord;
         private System.Windows.Forms.DataGridViewTextBoxColumn errorLine;
-        private System.Windows.Forms.DataGridViewTextBoxColumn symbolName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn memIndex;
-        private System.Windows.Forms.DataGridViewTextBoxColumn symbolIndex;
         private System.Windows.Forms.Button importButton;
+        private System.Windows.Forms.DataGridViewTextBoxColumn index;
+        private System.Windows.Forms.DataGridViewTextBoxColumn symbolName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn symbolIndex;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Word;
         private System.Windows.Forms.DataGridViewTextBoxColumn token;
         private System.Windows.Forms.DataGridViewTextBoxColumn typeNum;
         private System.Windows.Forms.DataGridViewTextBoxColumn className;

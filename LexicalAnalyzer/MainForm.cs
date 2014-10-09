@@ -99,6 +99,7 @@ namespace LexicalAnalyzer
             for (int i = 0; i < tokenResList.Count; i++)
             {
                 index = tokenDataGridView.Rows.Add();
+
                 tokenDataGridView.Rows[index].Cells[0].Value = tokenResList[i].Token.ToString();
                 tokenDataGridView.Rows[index].Cells[1].Value = tokenResList[i].TypeNum;
                 tokenDataGridView.Rows[index].Cells[2].Value = tokenResList[i].ClassName;
@@ -124,8 +125,8 @@ namespace LexicalAnalyzer
             for (int i = 0; i < symbolList.Count; i++)
             {
                 index = symbolDataGridView.Rows.Add();
-                symbolDataGridView.Rows[index].Cells[0].Value = symbolList[i].SymbolName;
-                symbolDataGridView.Rows[index].Cells[1].Value = symbolList[i].MemIndex;
+                symbolDataGridView.Rows[index].Cells[0].Value = symbolList[i].MemIndex;
+                symbolDataGridView.Rows[index].Cells[1].Value = symbolList[i].SymbolName;
                 symbolDataGridView.Rows[index].Cells[2].Value = symbolList[i].LineIndex;
             }
         }

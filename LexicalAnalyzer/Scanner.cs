@@ -33,6 +33,7 @@ namespace LexicalAnalyzer
             int codeIndex = 0;      //代码下标
             int lineIndex = 1;      //行号
             string str = "";
+            int pointerIndex = 0;
 
             string codeStr = programStr;
             this.recognationNote(codeStr);
@@ -133,8 +134,9 @@ namespace LexicalAnalyzer
                             int flag = isKeyWord(str);
                             if (flag < 0)
                             {
-                                add2TokenResList("IDN", str, 256, "标识符", lineIndex);
-                                add2SymbolList(str, lineIndex);
+                                pointerIndex = add2SymbolList(str, lineIndex);
+                                add2TokenResList("IDN", pointerIndex.ToString(), 256, "标识符", lineIndex);
+                                
                             }
                             else
                             {
@@ -729,8 +731,9 @@ namespace LexicalAnalyzer
         /// <summary>
         /// 添加到symbolList
         /// </summary>
-        private void add2SymbolList(string symbolName, int lineIndex)
+        private int add2SymbolList(string symbolName, int lineIndex)
         {
+            int index = -1;
             bool flag = false;
             //判断传入的标识符是否已经在符号表中
             foreach (Symbol symbol in symbolList)
@@ -738,6 +741,7 @@ namespace LexicalAnalyzer
                 if (symbolName.Equals(symbol.SymbolName))
                 {
                     flag = true;
+                    index = symbol.MemIndex;
                     break;
                 }
             }
@@ -745,8 +749,10 @@ namespace LexicalAnalyzer
             if (!flag)
             {
                 symbolList.Add(new Symbol(symbolName, memIndex, lineIndex));
+                index = memIndex;
                 this.memIndex++;
             }
+            return index;
         }
 
 
