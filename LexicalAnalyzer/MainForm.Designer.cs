@@ -47,10 +47,10 @@
             this.errorLine = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.symbolGroupBox = new System.Windows.Forms.GroupBox();
             this.symbolDataGridView = new System.Windows.Forms.DataGridView();
-            this.importButton = new System.Windows.Forms.Button();
             this.index = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.symbolName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.symbolIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.importButton = new System.Windows.Forms.Button();
             this.resGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tokenDataGridView)).BeginInit();
             this.codeGroupBox.SuspendLayout();
@@ -73,7 +73,7 @@
             // contentRichTextBox
             // 
             this.contentRichTextBox.BackColor = System.Drawing.SystemColors.Desktop;
-            this.contentRichTextBox.ForeColor = System.Drawing.SystemColors.Window;
+            this.contentRichTextBox.ForeColor = System.Drawing.Color.Yellow;
             this.contentRichTextBox.Location = new System.Drawing.Point(48, 20);
             this.contentRichTextBox.Name = "contentRichTextBox";
             this.contentRichTextBox.Size = new System.Drawing.Size(501, 306);
@@ -232,17 +232,7 @@
             this.symbolDataGridView.Size = new System.Drawing.Size(369, 143);
             this.symbolDataGridView.TabIndex = 0;
             // 
-            // importButton
-            // 
-            this.importButton.Location = new System.Drawing.Point(583, 104);
-            this.importButton.Name = "importButton";
-            this.importButton.Size = new System.Drawing.Size(75, 23);
-            this.importButton.TabIndex = 10;
-            this.importButton.Text = "导入";
-            this.importButton.UseVisualStyleBackColor = true;
-            this.importButton.Click += new System.EventHandler(this.importButton_Click);
-            // 
-            // memIndex
+            // index
             // 
             this.index.HeaderText = "序号";
             this.index.Name = "index";
@@ -258,6 +248,16 @@
             this.symbolIndex.HeaderText = "首次出现行号";
             this.symbolIndex.Name = "symbolIndex";
             this.symbolIndex.Width = 110;
+            // 
+            // importButton
+            // 
+            this.importButton.Location = new System.Drawing.Point(583, 104);
+            this.importButton.Name = "importButton";
+            this.importButton.Size = new System.Drawing.Size(75, 23);
+            this.importButton.TabIndex = 10;
+            this.importButton.Text = "导入";
+            this.importButton.UseVisualStyleBackColor = true;
+            this.importButton.Click += new System.EventHandler(this.importButton_Click);
             // 
             // MainForm
             // 
