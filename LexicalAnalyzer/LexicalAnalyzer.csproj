@@ -52,10 +52,14 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="NonterminalSymbol.cs" />
+    <Compile Include="Production.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scanner.cs" />
     <Compile Include="Symbol.cs" />
+    <Compile Include="Grammer.cs" />
+    <Compile Include="TerminalSymbol.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="TokenResult.cs" />
     <EmbeddedResource Include="MainForm.resx">

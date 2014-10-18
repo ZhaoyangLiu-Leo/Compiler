@@ -13,14 +13,19 @@ namespace LexicalAnalyzer
     public partial class MainForm : Form
     {
         private string codeStr;
+        private string gramStr = "";
         private List<TokenResult> tokenResList;
         private List<Error> errorList;
         private List<Symbol> symbolList;
-        
+        private HashSet<string> tSymbols;
+        private HashSet<string> nSymbols;
+
+
         public MainForm()
         {
             InitializeComponent();
             indexRichTextBox.Text = "1";
+            mainTabControl.SelectedTab = scannerTabPage;
         }
 
         /// <summary>
@@ -73,20 +78,20 @@ namespace LexicalAnalyzer
             codeStr = contentRichTextBox.Text;
             Scanner scanner = new Scanner();
             scanner.analyzeCode(codeStr, out tokenResList, out errorList, out symbolList);
-            //for (int i = 0; i < tokenResList.Count; i++)
-            //{
-            //    Console.WriteLine(tokenResList[i]);
-            //}
-            //Console.WriteLine("*************************************");
-            //for (int i = 0; i < symbolList.Count; i++)
-            //{
-            //    Console.WriteLine(symbolList[i]);
-            //}
-            //Console.WriteLine("*************************************");
-            //for (int i = 0; i < errorList.Count; i++)
-            //{
-            //    Console.WriteLine(errorList[i]);
-            //}
+            /*for (int i = 0; i < tokenResList.Count; i++)
+            {
+                Console.WriteLine(tokenResList[i]);
+            }
+            Console.WriteLine("*************************************");
+            for (int i = 0; i < symbolList.Count; i++)
+            {
+                Console.WriteLine(symbolList[i]);
+            }
+            Console.WriteLine("*************************************");
+            for (int i = 0; i < errorList.Count; i++)
+            {
+                Console.WriteLine(errorList[i]);
+            }*/
             this.add2TokenDataGridView();
             this.add2ErrorDataGridView();
             this.add2SymbolDataGridList();
@@ -163,28 +168,103 @@ namespace LexicalAnalyzer
         /// </summary>
         private void importButton_Click(object sender, EventArgs e)
         {
-            string fileName = "";
-            
             OpenFileDialog fd = new OpenFileDialog();
             fd.Filter = "C 文件 (*.c)|*.c";
             fd.RestoreDirectory = true;
             if (fd.ShowDialog() == DialogResult.OK)
             {
-                fileName = fd.FileName;
-                try
-                {
-                    StreamReader objReader = new StreamReader(fileName);
-                    string programCode = objReader.ReadToEnd();
-                    contentRichTextBox.Text = programCode;
-                }
-                catch (IOException ex)
-                {
-                    MessageBox.Show("文件打开异常");
-                    return;
-                }
+                string fileName = fd.FileName;
+                contentRichTextBox.Text = importFile(fileName);
             }
-
         }
-        
+
+        /// <summary>
+        /// 词法分析菜单项处理函数
+        /// </summary>
+        private void scannerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.mainTabControl.SelectedTab = scannerTabPage;
+        }
+
+        /// <summary>
+        /// 系统说明菜单项处理函数
+        /// </summary>
+        private void descriptionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("系统包含：\n1. 词法分析器        \n2. 句法分析器       \n3. 语义分析器\n\n@author: by 刘兆洋");
+        }
+
+        /// <summary>
+        /// 文法规则菜单项处理函数
+        /// </summary>
+        private void grammerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.mainTabControl.SelectedTab = grammerTabpage;
+        }
+
+        /// <summary>
+        /// 文法导入按钮处理函数
+        /// </summary>
+        private void importGramButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fd = new OpenFileDialog();
+            fd.Filter = "TXT 文件 (*.txt)|*.txt";
+            fd.RestoreDirectory = true;
+            if (fd.ShowDialog() == DialogResult.OK)
+            {
+                string fileName = fd.FileName;
+                gramContentRichTextBox.Text = importFile(fileName);
+            }
+        }
+
+        /// <summary>
+        /// 文件导入
+        /// </summary>
+        /// <param name="fileName">文件路径</param>
+        /// <returns>文件内容</returns>
+        private string importFile(string fileName)
+        {
+            string fileContent;
+            try
+            {
+                StreamReader objReader = new StreamReader(fileName);
+                fileContent = objReader.ReadToEnd();
+                objReader.Close();
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("文件打开异常");
+                fileContent = "";
+            }
+            return fileContent;
+        }
+
+        /// <summary>
+        /// 文法分析按钮处理函数
+        /// </summary>
+        private void gramAnalyseButton_Click(object sender, EventArgs e)
+        {
+            Grammer grammer = new Grammer();
+            gramStr = gramContentRichTextBox.Text;
+            grammer.grammerAnalyse(gramStr, out tSymbols, out nSymbols);
+            add2TSymbolListBox();
+            add2NSymbolListBox();
+        }
+
+        private void add2TSymbolListBox()
+        {
+            foreach (string str in tSymbols)
+            {
+                tSymbolListBox.Items.Add(str);
+            }
+        }
+
+        private void add2NSymbolListBox()
+        {
+            foreach (string str in nSymbols)
+            {
+                nSymbolListBox.Items.Add(str);
+            }
+        }
     }
 }

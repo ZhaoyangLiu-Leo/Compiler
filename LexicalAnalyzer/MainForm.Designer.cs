@@ -51,6 +51,31 @@
             this.symbolName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.symbolIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.importButton = new System.Windows.Forms.Button();
+            this.mainTabControl = new System.Windows.Forms.TabControl();
+            this.scannerTabPage = new System.Windows.Forms.TabPage();
+            this.grammerTabpage = new System.Windows.Forms.TabPage();
+            this.gramAnalyseButton = new System.Windows.Forms.Button();
+            this.importGramButton = new System.Windows.Forms.Button();
+            this.grammerGroupBox = new System.Windows.Forms.GroupBox();
+            this.gramContentRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
+            this.发射点ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.scannerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.grammerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.descriptionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gramSymbolGroupBox = new System.Windows.Forms.GroupBox();
+            this.tSymbolListBox = new System.Windows.Forms.ListBox();
+            this.tSymbolLabel = new System.Windows.Forms.Label();
+            this.nSymbolLabel = new System.Windows.Forms.Label();
+            this.nSymbolListBox = new System.Windows.Forms.ListBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.productionIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.left = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.productionContent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.select集合 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.followSet = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.firstSet = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.resGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tokenDataGridView)).BeginInit();
             this.codeGroupBox.SuspendLayout();
@@ -58,6 +83,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorDataGridView)).BeginInit();
             this.symbolGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.symbolDataGridView)).BeginInit();
+            this.mainTabControl.SuspendLayout();
+            this.scannerTabPage.SuspendLayout();
+            this.grammerTabpage.SuspendLayout();
+            this.grammerGroupBox.SuspendLayout();
+            this.mainMenuStrip.SuspendLayout();
+            this.gramSymbolGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // indexRichTextBox
@@ -77,7 +109,7 @@
             this.contentRichTextBox.Location = new System.Drawing.Point(48, 20);
             this.contentRichTextBox.Name = "contentRichTextBox";
             this.contentRichTextBox.Size = new System.Drawing.Size(501, 306);
-            this.contentRichTextBox.TabIndex = 2;
+            this.contentRichTextBox.TabIndex = 0;
             this.contentRichTextBox.Text = "";
             this.contentRichTextBox.VScroll += new System.EventHandler(this.contentRichTextBox_VScroll);
             this.contentRichTextBox.TextChanged += new System.EventHandler(this.contentRichTextBox_TextChanged);
@@ -85,7 +117,7 @@
             // resGroupBox
             // 
             this.resGroupBox.Controls.Add(this.tokenDataGridView);
-            this.resGroupBox.Location = new System.Drawing.Point(669, 33);
+            this.resGroupBox.Location = new System.Drawing.Point(694, 16);
             this.resGroupBox.Name = "resGroupBox";
             this.resGroupBox.Size = new System.Drawing.Size(401, 345);
             this.resGroupBox.TabIndex = 3;
@@ -139,20 +171,20 @@
             // 
             // resetButton
             // 
-            this.resetButton.Location = new System.Drawing.Point(583, 195);
+            this.resetButton.Location = new System.Drawing.Point(595, 135);
             this.resetButton.Name = "resetButton";
             this.resetButton.Size = new System.Drawing.Size(75, 23);
-            this.resetButton.TabIndex = 4;
+            this.resetButton.TabIndex = 1;
             this.resetButton.Text = "重置";
             this.resetButton.UseVisualStyleBackColor = true;
             this.resetButton.Click += new System.EventHandler(this.resetButton_Click);
             // 
             // compileButton
             // 
-            this.compileButton.Location = new System.Drawing.Point(583, 286);
+            this.compileButton.Location = new System.Drawing.Point(595, 225);
             this.compileButton.Name = "compileButton";
             this.compileButton.Size = new System.Drawing.Size(75, 23);
-            this.compileButton.TabIndex = 5;
+            this.compileButton.TabIndex = 2;
             this.compileButton.Text = "编译";
             this.compileButton.UseVisualStyleBackColor = true;
             this.compileButton.Click += new System.EventHandler(this.compileButton_Click);
@@ -161,7 +193,7 @@
             // 
             this.codeGroupBox.Controls.Add(this.contentRichTextBox);
             this.codeGroupBox.Controls.Add(this.indexRichTextBox);
-            this.codeGroupBox.Location = new System.Drawing.Point(12, 33);
+            this.codeGroupBox.Location = new System.Drawing.Point(6, 16);
             this.codeGroupBox.Name = "codeGroupBox";
             this.codeGroupBox.Size = new System.Drawing.Size(565, 345);
             this.codeGroupBox.TabIndex = 7;
@@ -171,7 +203,7 @@
             // errorGroupBox
             // 
             this.errorGroupBox.Controls.Add(this.errorDataGridView);
-            this.errorGroupBox.Location = new System.Drawing.Point(12, 396);
+            this.errorGroupBox.Location = new System.Drawing.Point(6, 394);
             this.errorGroupBox.Name = "errorGroupBox";
             this.errorGroupBox.Size = new System.Drawing.Size(565, 169);
             this.errorGroupBox.TabIndex = 8;
@@ -212,7 +244,7 @@
             // symbolGroupBox
             // 
             this.symbolGroupBox.Controls.Add(this.symbolDataGridView);
-            this.symbolGroupBox.Location = new System.Drawing.Point(669, 396);
+            this.symbolGroupBox.Location = new System.Drawing.Point(694, 394);
             this.symbolGroupBox.Name = "symbolGroupBox";
             this.symbolGroupBox.Size = new System.Drawing.Size(401, 169);
             this.symbolGroupBox.TabIndex = 9;
@@ -226,16 +258,17 @@
             this.index,
             this.symbolName,
             this.symbolIndex});
-            this.symbolDataGridView.Location = new System.Drawing.Point(26, 20);
+            this.symbolDataGridView.Location = new System.Drawing.Point(6, 20);
             this.symbolDataGridView.Name = "symbolDataGridView";
             this.symbolDataGridView.RowTemplate.Height = 23;
-            this.symbolDataGridView.Size = new System.Drawing.Size(369, 143);
+            this.symbolDataGridView.Size = new System.Drawing.Size(389, 143);
             this.symbolDataGridView.TabIndex = 0;
             // 
             // index
             // 
             this.index.HeaderText = "序号";
             this.index.Name = "index";
+            this.index.Width = 120;
             // 
             // symbolName
             // 
@@ -251,29 +284,259 @@
             // 
             // importButton
             // 
-            this.importButton.Location = new System.Drawing.Point(583, 104);
+            this.importButton.Location = new System.Drawing.Point(595, 59);
             this.importButton.Name = "importButton";
             this.importButton.Size = new System.Drawing.Size(75, 23);
-            this.importButton.TabIndex = 10;
+            this.importButton.TabIndex = 0;
             this.importButton.Text = "导入";
             this.importButton.UseVisualStyleBackColor = true;
             this.importButton.Click += new System.EventHandler(this.importButton_Click);
+            // 
+            // mainTabControl
+            // 
+            this.mainTabControl.Controls.Add(this.scannerTabPage);
+            this.mainTabControl.Controls.Add(this.grammerTabpage);
+            this.mainTabControl.Location = new System.Drawing.Point(12, 27);
+            this.mainTabControl.Name = "mainTabControl";
+            this.mainTabControl.SelectedIndex = 0;
+            this.mainTabControl.Size = new System.Drawing.Size(1117, 624);
+            this.mainTabControl.TabIndex = 0;
+            // 
+            // scannerTabPage
+            // 
+            this.scannerTabPage.Controls.Add(this.compileButton);
+            this.scannerTabPage.Controls.Add(this.symbolGroupBox);
+            this.scannerTabPage.Controls.Add(this.importButton);
+            this.scannerTabPage.Controls.Add(this.errorGroupBox);
+            this.scannerTabPage.Controls.Add(this.resetButton);
+            this.scannerTabPage.Controls.Add(this.resGroupBox);
+            this.scannerTabPage.Controls.Add(this.codeGroupBox);
+            this.scannerTabPage.Location = new System.Drawing.Point(4, 22);
+            this.scannerTabPage.Name = "scannerTabPage";
+            this.scannerTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.scannerTabPage.Size = new System.Drawing.Size(1109, 598);
+            this.scannerTabPage.TabIndex = 0;
+            this.scannerTabPage.Text = "词法分析器";
+            this.scannerTabPage.UseVisualStyleBackColor = true;
+            // 
+            // grammerTabpage
+            // 
+            this.grammerTabpage.Controls.Add(this.dataGridView1);
+            this.grammerTabpage.Controls.Add(this.gramSymbolGroupBox);
+            this.grammerTabpage.Controls.Add(this.gramAnalyseButton);
+            this.grammerTabpage.Controls.Add(this.importGramButton);
+            this.grammerTabpage.Controls.Add(this.grammerGroupBox);
+            this.grammerTabpage.Location = new System.Drawing.Point(4, 22);
+            this.grammerTabpage.Name = "grammerTabpage";
+            this.grammerTabpage.Padding = new System.Windows.Forms.Padding(3);
+            this.grammerTabpage.Size = new System.Drawing.Size(1109, 598);
+            this.grammerTabpage.TabIndex = 1;
+            this.grammerTabpage.Text = "文法规则";
+            this.grammerTabpage.UseVisualStyleBackColor = true;
+            // 
+            // gramAnalyseButton
+            // 
+            this.gramAnalyseButton.Location = new System.Drawing.Point(554, 164);
+            this.gramAnalyseButton.Name = "gramAnalyseButton";
+            this.gramAnalyseButton.Size = new System.Drawing.Size(75, 23);
+            this.gramAnalyseButton.TabIndex = 2;
+            this.gramAnalyseButton.Text = "文法分析";
+            this.gramAnalyseButton.UseVisualStyleBackColor = true;
+            this.gramAnalyseButton.Click += new System.EventHandler(this.gramAnalyseButton_Click);
+            // 
+            // importGramButton
+            // 
+            this.importGramButton.Location = new System.Drawing.Point(554, 94);
+            this.importGramButton.Name = "importGramButton";
+            this.importGramButton.Size = new System.Drawing.Size(75, 23);
+            this.importGramButton.TabIndex = 1;
+            this.importGramButton.Text = "文法导入";
+            this.importGramButton.UseVisualStyleBackColor = true;
+            this.importGramButton.Click += new System.EventHandler(this.importGramButton_Click);
+            // 
+            // grammerGroupBox
+            // 
+            this.grammerGroupBox.Controls.Add(this.gramContentRichTextBox);
+            this.grammerGroupBox.Location = new System.Drawing.Point(24, 21);
+            this.grammerGroupBox.Name = "grammerGroupBox";
+            this.grammerGroupBox.Size = new System.Drawing.Size(494, 271);
+            this.grammerGroupBox.TabIndex = 0;
+            this.grammerGroupBox.TabStop = false;
+            this.grammerGroupBox.Text = "文法定义";
+            // 
+            // gramContentRichTextBox
+            // 
+            this.gramContentRichTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.gramContentRichTextBox.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.gramContentRichTextBox.Location = new System.Drawing.Point(6, 20);
+            this.gramContentRichTextBox.Name = "gramContentRichTextBox";
+            this.gramContentRichTextBox.Size = new System.Drawing.Size(475, 245);
+            this.gramContentRichTextBox.TabIndex = 0;
+            this.gramContentRichTextBox.Text = "";
+            // 
+            // mainMenuStrip
+            // 
+            this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.发射点ToolStripMenuItem,
+            this.关于ToolStripMenuItem});
+            this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.mainMenuStrip.Name = "mainMenuStrip";
+            this.mainMenuStrip.Size = new System.Drawing.Size(1141, 24);
+            this.mainMenuStrip.TabIndex = 1;
+            this.mainMenuStrip.Text = "菜单";
+            // 
+            // 发射点ToolStripMenuItem
+            // 
+            this.发射点ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.scannerToolStripMenuItem,
+            this.grammerToolStripMenuItem});
+            this.发射点ToolStripMenuItem.Name = "发射点ToolStripMenuItem";
+            this.发射点ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
+            this.发射点ToolStripMenuItem.Text = "操作";
+            // 
+            // scannerToolStripMenuItem
+            // 
+            this.scannerToolStripMenuItem.Name = "scannerToolStripMenuItem";
+            this.scannerToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.scannerToolStripMenuItem.Text = "词法分析";
+            this.scannerToolStripMenuItem.Click += new System.EventHandler(this.scannerToolStripMenuItem_Click);
+            // 
+            // grammerToolStripMenuItem
+            // 
+            this.grammerToolStripMenuItem.Name = "grammerToolStripMenuItem";
+            this.grammerToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.grammerToolStripMenuItem.Text = "文法规则";
+            this.grammerToolStripMenuItem.Click += new System.EventHandler(this.grammerToolStripMenuItem_Click);
+            // 
+            // 关于ToolStripMenuItem
+            // 
+            this.关于ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.descriptionToolStripMenuItem});
+            this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
+            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
+            this.关于ToolStripMenuItem.Text = "关于";
+            // 
+            // descriptionToolStripMenuItem
+            // 
+            this.descriptionToolStripMenuItem.Name = "descriptionToolStripMenuItem";
+            this.descriptionToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.descriptionToolStripMenuItem.Text = "系统说明";
+            this.descriptionToolStripMenuItem.Click += new System.EventHandler(this.descriptionToolStripMenuItem_Click);
+            // 
+            // gramSymbolGroupBox
+            // 
+            this.gramSymbolGroupBox.Controls.Add(this.nSymbolLabel);
+            this.gramSymbolGroupBox.Controls.Add(this.tSymbolLabel);
+            this.gramSymbolGroupBox.Controls.Add(this.nSymbolListBox);
+            this.gramSymbolGroupBox.Controls.Add(this.tSymbolListBox);
+            this.gramSymbolGroupBox.Location = new System.Drawing.Point(658, 21);
+            this.gramSymbolGroupBox.Name = "gramSymbolGroupBox";
+            this.gramSymbolGroupBox.Size = new System.Drawing.Size(433, 271);
+            this.gramSymbolGroupBox.TabIndex = 3;
+            this.gramSymbolGroupBox.TabStop = false;
+            this.gramSymbolGroupBox.Text = "文法符号";
+            // 
+            // tSymbolListBox
+            // 
+            this.tSymbolListBox.BackColor = System.Drawing.SystemColors.Window;
+            this.tSymbolListBox.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.tSymbolListBox.FormattingEnabled = true;
+            this.tSymbolListBox.ItemHeight = 12;
+            this.tSymbolListBox.Location = new System.Drawing.Point(60, 20);
+            this.tSymbolListBox.Name = "tSymbolListBox";
+            this.tSymbolListBox.Size = new System.Drawing.Size(130, 244);
+            this.tSymbolListBox.TabIndex = 0;
+            // 
+            // tSymbolLabel
+            // 
+            this.tSymbolLabel.AutoSize = true;
+            this.tSymbolLabel.Location = new System.Drawing.Point(6, 23);
+            this.tSymbolLabel.Name = "tSymbolLabel";
+            this.tSymbolLabel.Size = new System.Drawing.Size(53, 12);
+            this.tSymbolLabel.TabIndex = 1;
+            this.tSymbolLabel.Text = "终结符：";
+            // 
+            // nSymbolLabel
+            // 
+            this.nSymbolLabel.AutoSize = true;
+            this.nSymbolLabel.Location = new System.Drawing.Point(218, 23);
+            this.nSymbolLabel.Name = "nSymbolLabel";
+            this.nSymbolLabel.Size = new System.Drawing.Size(65, 12);
+            this.nSymbolLabel.TabIndex = 1;
+            this.nSymbolLabel.Text = "非终结符：";
+            // 
+            // nSymbolListBox
+            // 
+            this.nSymbolListBox.BackColor = System.Drawing.SystemColors.Window;
+            this.nSymbolListBox.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.nSymbolListBox.FormattingEnabled = true;
+            this.nSymbolListBox.ItemHeight = 12;
+            this.nSymbolListBox.Location = new System.Drawing.Point(289, 20);
+            this.nSymbolListBox.Name = "nSymbolListBox";
+            this.nSymbolListBox.Size = new System.Drawing.Size(130, 244);
+            this.nSymbolListBox.TabIndex = 0;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.productionIndex,
+            this.left,
+            this.productionContent,
+            this.select集合,
+            this.followSet,
+            this.firstSet});
+            this.dataGridView1.Location = new System.Drawing.Point(24, 312);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 23;
+            this.dataGridView1.Size = new System.Drawing.Size(1067, 264);
+            this.dataGridView1.TabIndex = 4;
+            // 
+            // productionIndex
+            // 
+            this.productionIndex.HeaderText = "编号";
+            this.productionIndex.Name = "productionIndex";
+            // 
+            // left
+            // 
+            this.left.HeaderText = "左部";
+            this.left.Name = "left";
+            // 
+            // productionContent
+            // 
+            this.productionContent.HeaderText = "产生式";
+            this.productionContent.Name = "productionContent";
+            this.productionContent.Width = 200;
+            // 
+            // select集合
+            // 
+            this.select集合.HeaderText = "selectSet";
+            this.select集合.Name = "select集合";
+            this.select集合.Width = 210;
+            // 
+            // followSet
+            // 
+            this.followSet.HeaderText = "follow集合";
+            this.followSet.Name = "followSet";
+            this.followSet.Width = 210;
+            // 
+            // firstSet
+            // 
+            this.firstSet.HeaderText = "first集合";
+            this.firstSet.Name = "firstSet";
+            this.firstSet.Width = 210;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1082, 577);
-            this.Controls.Add(this.importButton);
-            this.Controls.Add(this.symbolGroupBox);
-            this.Controls.Add(this.errorGroupBox);
-            this.Controls.Add(this.codeGroupBox);
-            this.Controls.Add(this.compileButton);
-            this.Controls.Add(this.resetButton);
-            this.Controls.Add(this.resGroupBox);
+            this.ClientSize = new System.Drawing.Size(1141, 660);
+            this.Controls.Add(this.mainTabControl);
+            this.Controls.Add(this.mainMenuStrip);
+            this.MainMenuStrip = this.mainMenuStrip;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "词法分析器";
+            this.Text = "主界面";
             this.resGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tokenDataGridView)).EndInit();
             this.codeGroupBox.ResumeLayout(false);
@@ -281,7 +544,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorDataGridView)).EndInit();
             this.symbolGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.symbolDataGridView)).EndInit();
+            this.mainTabControl.ResumeLayout(false);
+            this.scannerTabPage.ResumeLayout(false);
+            this.grammerTabpage.ResumeLayout(false);
+            this.grammerGroupBox.ResumeLayout(false);
+            this.mainMenuStrip.ResumeLayout(false);
+            this.mainMenuStrip.PerformLayout();
+            this.gramSymbolGroupBox.ResumeLayout(false);
+            this.gramSymbolGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -310,6 +583,31 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn index;
         private System.Windows.Forms.DataGridViewTextBoxColumn symbolName;
         private System.Windows.Forms.DataGridViewTextBoxColumn symbolIndex;
+        private System.Windows.Forms.TabControl mainTabControl;
+        private System.Windows.Forms.TabPage scannerTabPage;
+        private System.Windows.Forms.TabPage grammerTabpage;
+        private System.Windows.Forms.MenuStrip mainMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem 发射点ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem scannerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem grammerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 关于ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem descriptionToolStripMenuItem;
+        private System.Windows.Forms.GroupBox grammerGroupBox;
+        private System.Windows.Forms.RichTextBox gramContentRichTextBox;
+        private System.Windows.Forms.Button importGramButton;
+        private System.Windows.Forms.Button gramAnalyseButton;
+        private System.Windows.Forms.GroupBox gramSymbolGroupBox;
+        private System.Windows.Forms.Label tSymbolLabel;
+        private System.Windows.Forms.ListBox tSymbolListBox;
+        private System.Windows.Forms.Label nSymbolLabel;
+        private System.Windows.Forms.ListBox nSymbolListBox;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn productionIndex;
+        private System.Windows.Forms.DataGridViewTextBoxColumn left;
+        private System.Windows.Forms.DataGridViewTextBoxColumn productionContent;
+        private System.Windows.Forms.DataGridViewTextBoxColumn select集合;
+        private System.Windows.Forms.DataGridViewTextBoxColumn followSet;
+        private System.Windows.Forms.DataGridViewTextBoxColumn firstSet;
     }
 }
 
