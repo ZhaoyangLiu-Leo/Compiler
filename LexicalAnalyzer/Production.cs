@@ -9,12 +9,13 @@ namespace LexicalAnalyzer
     {
         private string left;                    //产生式左部
         private List<string> right;             //产生式右部
-        private List<string> selectStr;         //产生式对应的select集
+        private HashSet<string> selectStr;         //产生式对应的select集
 
         public Production(string left, List<string> right)
         {
             this.left = left;
             this.right = right;
+            this.selectStr = new HashSet<string>();
         }
 
         /// <summary>
@@ -38,7 +39,7 @@ namespace LexicalAnalyzer
         /// <summary>
         /// set or get 产生式的select集
         /// </summary>
-        public List<string> SelectStr
+        public HashSet<string> SelectStr
         {
             get { return selectStr; }
             set { selectStr = value; }

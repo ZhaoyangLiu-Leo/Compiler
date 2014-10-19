@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,13 +20,19 @@ namespace LexicalAnalyzer
         private List<Symbol> symbolList;
         private HashSet<string> tSymbols;
         private HashSet<string> nSymbols;
-
+        private List<Production> productions;
+        private Hashtable nSymbolTable;
+        private List<SentenseResult> sentenseResList;
+        private Hashtable forecastTable;
+        private bool isLL1Grammer;
+        private List<GrammerError> grammerErrorList;
+        private Grammer grammer;
 
         public MainForm()
         {
             InitializeComponent();
             indexRichTextBox.Text = "1";
-            mainTabControl.SelectedTab = scannerTabPage;
+            isLL1Grammer = false;
         }
 
         /// <summary>
@@ -244,13 +251,26 @@ namespace LexicalAnalyzer
         /// </summary>
         private void gramAnalyseButton_Click(object sender, EventArgs e)
         {
-            Grammer grammer = new Grammer();
+            grammer = new Grammer();
             gramStr = gramContentRichTextBox.Text;
-            grammer.grammerAnalyse(gramStr, out tSymbols, out nSymbols);
+            isLL1Grammer = grammer.grammerAnalyse(gramStr, out tSymbols, out nSymbols, out nSymbolTable, out productions, out forecastTable);
+            if (isLL1Grammer)
+            {
+                MessageBox.Show("该文法符合LL(1)文法，终结符个数：" + tSymbols.Count + "； 非终结符个数：" + nSymbols.Count, "Success");
+            }
+            else
+            {
+                MessageBox.Show("该文法不符合LL(1)文法", "Fail");
+                return;
+            }
             add2TSymbolListBox();
             add2NSymbolListBox();
+            add2GramResDataGridView();
         }
 
+        /// <summary>
+        /// 将终结符集合添加到listbox
+        /// </summary>
         private void add2TSymbolListBox()
         {
             foreach (string str in tSymbols)
@@ -259,12 +279,181 @@ namespace LexicalAnalyzer
             }
         }
 
+        /// <summary>
+        /// 将非终结符集合添加到listbox
+        /// </summary>
         private void add2NSymbolListBox()
         {
             foreach (string str in nSymbols)
             {
                 nSymbolListBox.Items.Add(str);
             }
+        }
+
+        /// <summary>
+        /// 将文法规则的分析结果添加到相应表格中
+        /// </summary>
+        private void add2GramResDataGridView()
+        {
+            int index;
+            string tempStr;
+            NonterminalSymbol nonSymbol;
+            foreach (Production p in productions)
+            {
+                tempStr = "";
+                index = gramResDataGridView.Rows.Add();
+                gramResDataGridView.Rows[index].Cells[0].Value = index;
+                gramResDataGridView.Rows[index].Cells[1].Value = p.Left;
+                gramResDataGridView.Rows[index].Cells[2].Value = p.ToString();
+
+                //添加select集
+                foreach(string str in p.SelectStr)
+                {
+                    tempStr = tempStr + str + " ";
+                }
+                gramResDataGridView.Rows[index].Cells[3].Value = tempStr;
+
+                //添加follow集
+                tempStr = "";
+                nonSymbol = nSymbolTable[p.Left] as NonterminalSymbol;
+                foreach(string str in nonSymbol.Follow)
+                {
+                    tempStr = tempStr + str + " ";
+                }
+                gramResDataGridView.Rows[index].Cells[4].Value = tempStr;
+
+                //添加first集
+                tempStr = "";
+                foreach(string str in nonSymbol.First)
+                {
+                    tempStr = tempStr + str + " ";
+                }
+                gramResDataGridView.Rows[index].Cells[5].Value = tempStr;
+            }
+        }
+
+        //文法分析按钮处理函数
+        private void senAnalyseButton_Click(object sender, EventArgs e)
+        {
+            if (productions.Count == 0)
+            {
+                MessageBox.Show("请先到文法规则页面，生成文法规则");
+                mainTabControl.SelectedTab = grammerTabpage;
+                return;
+            }
+            else if (tokenResList.Count == 0)
+            {
+                MessageBox.Show("请先进行词法分析");
+                return;
+            }
+            else
+            {
+                if (!isLL1Grammer)
+                {
+                    MessageBox.Show("文法规则不符合LL(1)文法，请重新设计文法");
+                    return;
+                }
+
+                forecastAnalyse();
+                SenAnalyseResForm senForm = new SenAnalyseResForm(forecastTable, sentenseResList, grammerErrorList);
+                senForm.Show();
+            }
+        }
+
+        private void forecastAnalyse()
+        {
+            int tokenIndex = 0;
+            sentenseResList = new List<SentenseResult>();
+            grammerErrorList = new List<GrammerError>();
+            GrammerError gramError;
+            SentenseResult senRes;
+
+            Stack<string> symbolStack = new Stack<string>();
+            string forecastKey;
+            string inputStr;
+            List<string> tempList;
+            string actionStr;
+
+            symbolStack.Push("@");
+            symbolStack.Push("S");
+            string symbol = symbolStack.Peek();
+            Token token = new Token("@", "_");
+            tokenResList.Add(new TokenResult("@", token, -1, null, -1));
+
+            while (!symbol.Equals("@") && tokenIndex < tokenResList.Count)
+            {
+                inputStr = tokenResList[tokenIndex].Token.TokenName;
+                forecastKey = symbol + " " + inputStr;
+                if (symbol.Equals(inputStr))
+                {
+                    senRes = new SentenseResult(symbol, inputStr, "匹配 " + inputStr);
+                    sentenseResList.Add(senRes);
+                    symbolStack.Pop();
+                    tokenIndex++;
+                }
+                else if (tSymbols.Contains(symbol))
+                {
+                    gramError = new GrammerError(symbol, inputStr, "栈顶出现不匹配的终结符");
+                    grammerErrorList.Add(gramError);
+                    symbolStack.Pop();
+                }
+                else if (!forecastTable.Contains(forecastKey))
+                {
+                    //if (grammer.isLeadNull(symbol))
+                    //{
+                    //    symbolStack.Pop();
+                    //}
+                    //else
+                    //{
+                        gramError = new GrammerError(symbol, inputStr, "当前输入符号不在栈顶元素的select集或follow集中");
+                        grammerErrorList.Add(gramError);
+                        tokenIndex++;
+                    //}
+                }
+                else if (forecastTable.Contains(forecastKey))
+                {
+                    tempList = forecastTable[forecastKey] as List<string>;
+                    if (tempList[0].Equals("synch"))
+                    {
+                        gramError = new GrammerError(symbol, inputStr, "当前输入符号不在栈顶元素的select集中但在follow集中");
+                        grammerErrorList.Add(gramError);
+                        symbolStack.Pop();
+                    }
+                    else if (tempList[0].Equals("$"))
+                    {
+                        senRes = new SentenseResult(symbol, inputStr, "输出 " + symbol + " -> $");
+                        sentenseResList.Add(senRes);
+                        symbolStack.Pop();
+                    }
+                    else
+                    {
+                        symbolStack.Pop();
+                        for (int i = tempList.Count - 1; i >= 0; i--)
+                        {
+                            symbolStack.Push(tempList[i]);
+                        }
+                        actionStr = "";
+                        foreach (string str in tempList)
+                        {
+                            actionStr = actionStr + " " + str;
+                        }
+                        senRes = new SentenseResult(symbol, inputStr, "输出 " + symbol + " -> " + actionStr);
+                        sentenseResList.Add(senRes);
+                    }
+                }
+                else { }
+                symbol = symbolStack.Peek();
+            }
+
+            //foreach (SentenseResult senResult in sentenseResList)
+            //{
+            //    Console.WriteLine(senResult);
+            //}
+
+            //foreach (GrammerError grammerError in grammerErrorList)
+            //{
+            //    Console.WriteLine(grammerError);
+            //}
         }
     }
 }

@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="ConstTable.cs" />
     <Compile Include="Error.cs" />
+    <Compile Include="GrammerError.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -57,6 +58,13 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scanner.cs" />
+    <Compile Include="SenAnalyseResForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SenAnalyseResForm.Designer.cs">
+      <DependentUpon>SenAnalyseResForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SentenseResult.cs" />
     <Compile Include="Symbol.cs" />
     <Compile Include="Grammer.cs" />
     <Compile Include="TerminalSymbol.cs" />
@@ -74,6 +82,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SenAnalyseResForm.resx">
+      <DependentUpon>SenAnalyseResForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

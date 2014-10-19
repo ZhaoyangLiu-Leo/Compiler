@@ -54,6 +54,18 @@
             this.mainTabControl = new System.Windows.Forms.TabControl();
             this.scannerTabPage = new System.Windows.Forms.TabPage();
             this.grammerTabpage = new System.Windows.Forms.TabPage();
+            this.gramResDataGridView = new System.Windows.Forms.DataGridView();
+            this.productionIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.left = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.productionContent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.selectSet = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.followSet = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.firstSet = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gramSymbolGroupBox = new System.Windows.Forms.GroupBox();
+            this.nSymbolLabel = new System.Windows.Forms.Label();
+            this.tSymbolLabel = new System.Windows.Forms.Label();
+            this.nSymbolListBox = new System.Windows.Forms.ListBox();
+            this.tSymbolListBox = new System.Windows.Forms.ListBox();
             this.gramAnalyseButton = new System.Windows.Forms.Button();
             this.importGramButton = new System.Windows.Forms.Button();
             this.grammerGroupBox = new System.Windows.Forms.GroupBox();
@@ -64,18 +76,7 @@
             this.grammerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.descriptionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gramSymbolGroupBox = new System.Windows.Forms.GroupBox();
-            this.tSymbolListBox = new System.Windows.Forms.ListBox();
-            this.tSymbolLabel = new System.Windows.Forms.Label();
-            this.nSymbolLabel = new System.Windows.Forms.Label();
-            this.nSymbolListBox = new System.Windows.Forms.ListBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.productionIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.left = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.productionContent = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.select集合 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.followSet = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.firstSet = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.senAnalyseButton = new System.Windows.Forms.Button();
             this.resGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tokenDataGridView)).BeginInit();
             this.codeGroupBox.SuspendLayout();
@@ -86,10 +87,10 @@
             this.mainTabControl.SuspendLayout();
             this.scannerTabPage.SuspendLayout();
             this.grammerTabpage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gramResDataGridView)).BeginInit();
+            this.gramSymbolGroupBox.SuspendLayout();
             this.grammerGroupBox.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
-            this.gramSymbolGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // indexRichTextBox
@@ -171,7 +172,7 @@
             // 
             // resetButton
             // 
-            this.resetButton.Location = new System.Drawing.Point(595, 135);
+            this.resetButton.Location = new System.Drawing.Point(595, 136);
             this.resetButton.Name = "resetButton";
             this.resetButton.Size = new System.Drawing.Size(75, 23);
             this.resetButton.TabIndex = 1;
@@ -181,11 +182,11 @@
             // 
             // compileButton
             // 
-            this.compileButton.Location = new System.Drawing.Point(595, 225);
+            this.compileButton.Location = new System.Drawing.Point(595, 213);
             this.compileButton.Name = "compileButton";
             this.compileButton.Size = new System.Drawing.Size(75, 23);
             this.compileButton.TabIndex = 2;
-            this.compileButton.Text = "编译";
+            this.compileButton.Text = "词法分析";
             this.compileButton.UseVisualStyleBackColor = true;
             this.compileButton.Click += new System.EventHandler(this.compileButton_Click);
             // 
@@ -294,8 +295,8 @@
             // 
             // mainTabControl
             // 
-            this.mainTabControl.Controls.Add(this.scannerTabPage);
             this.mainTabControl.Controls.Add(this.grammerTabpage);
+            this.mainTabControl.Controls.Add(this.scannerTabPage);
             this.mainTabControl.Location = new System.Drawing.Point(12, 27);
             this.mainTabControl.Name = "mainTabControl";
             this.mainTabControl.SelectedIndex = 0;
@@ -304,6 +305,7 @@
             // 
             // scannerTabPage
             // 
+            this.scannerTabPage.Controls.Add(this.senAnalyseButton);
             this.scannerTabPage.Controls.Add(this.compileButton);
             this.scannerTabPage.Controls.Add(this.symbolGroupBox);
             this.scannerTabPage.Controls.Add(this.importButton);
@@ -316,12 +318,12 @@
             this.scannerTabPage.Padding = new System.Windows.Forms.Padding(3);
             this.scannerTabPage.Size = new System.Drawing.Size(1109, 598);
             this.scannerTabPage.TabIndex = 0;
-            this.scannerTabPage.Text = "词法分析器";
+            this.scannerTabPage.Text = "词法分析";
             this.scannerTabPage.UseVisualStyleBackColor = true;
             // 
             // grammerTabpage
             // 
-            this.grammerTabpage.Controls.Add(this.dataGridView1);
+            this.grammerTabpage.Controls.Add(this.gramResDataGridView);
             this.grammerTabpage.Controls.Add(this.gramSymbolGroupBox);
             this.grammerTabpage.Controls.Add(this.gramAnalyseButton);
             this.grammerTabpage.Controls.Add(this.importGramButton);
@@ -333,6 +335,109 @@
             this.grammerTabpage.TabIndex = 1;
             this.grammerTabpage.Text = "文法规则";
             this.grammerTabpage.UseVisualStyleBackColor = true;
+            // 
+            // gramResDataGridView
+            // 
+            this.gramResDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gramResDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.productionIndex,
+            this.left,
+            this.productionContent,
+            this.selectSet,
+            this.followSet,
+            this.firstSet});
+            this.gramResDataGridView.Location = new System.Drawing.Point(24, 312);
+            this.gramResDataGridView.Name = "gramResDataGridView";
+            this.gramResDataGridView.RowTemplate.Height = 23;
+            this.gramResDataGridView.Size = new System.Drawing.Size(1067, 264);
+            this.gramResDataGridView.TabIndex = 4;
+            // 
+            // productionIndex
+            // 
+            this.productionIndex.HeaderText = "编号";
+            this.productionIndex.Name = "productionIndex";
+            // 
+            // left
+            // 
+            this.left.HeaderText = "左部";
+            this.left.Name = "left";
+            // 
+            // productionContent
+            // 
+            this.productionContent.HeaderText = "产生式";
+            this.productionContent.Name = "productionContent";
+            this.productionContent.Width = 200;
+            // 
+            // selectSet
+            // 
+            this.selectSet.HeaderText = "select集合";
+            this.selectSet.Name = "selectSet";
+            this.selectSet.Width = 210;
+            // 
+            // followSet
+            // 
+            this.followSet.HeaderText = "follow集合";
+            this.followSet.Name = "followSet";
+            this.followSet.Width = 210;
+            // 
+            // firstSet
+            // 
+            this.firstSet.HeaderText = "first集合";
+            this.firstSet.Name = "firstSet";
+            this.firstSet.Width = 210;
+            // 
+            // gramSymbolGroupBox
+            // 
+            this.gramSymbolGroupBox.Controls.Add(this.nSymbolLabel);
+            this.gramSymbolGroupBox.Controls.Add(this.tSymbolLabel);
+            this.gramSymbolGroupBox.Controls.Add(this.nSymbolListBox);
+            this.gramSymbolGroupBox.Controls.Add(this.tSymbolListBox);
+            this.gramSymbolGroupBox.Location = new System.Drawing.Point(658, 21);
+            this.gramSymbolGroupBox.Name = "gramSymbolGroupBox";
+            this.gramSymbolGroupBox.Size = new System.Drawing.Size(433, 271);
+            this.gramSymbolGroupBox.TabIndex = 3;
+            this.gramSymbolGroupBox.TabStop = false;
+            this.gramSymbolGroupBox.Text = "文法符号";
+            // 
+            // nSymbolLabel
+            // 
+            this.nSymbolLabel.AutoSize = true;
+            this.nSymbolLabel.Location = new System.Drawing.Point(218, 23);
+            this.nSymbolLabel.Name = "nSymbolLabel";
+            this.nSymbolLabel.Size = new System.Drawing.Size(65, 12);
+            this.nSymbolLabel.TabIndex = 1;
+            this.nSymbolLabel.Text = "非终结符：";
+            // 
+            // tSymbolLabel
+            // 
+            this.tSymbolLabel.AutoSize = true;
+            this.tSymbolLabel.Location = new System.Drawing.Point(6, 23);
+            this.tSymbolLabel.Name = "tSymbolLabel";
+            this.tSymbolLabel.Size = new System.Drawing.Size(53, 12);
+            this.tSymbolLabel.TabIndex = 1;
+            this.tSymbolLabel.Text = "终结符：";
+            // 
+            // nSymbolListBox
+            // 
+            this.nSymbolListBox.BackColor = System.Drawing.SystemColors.Window;
+            this.nSymbolListBox.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.nSymbolListBox.FormattingEnabled = true;
+            this.nSymbolListBox.ItemHeight = 12;
+            this.nSymbolListBox.Location = new System.Drawing.Point(289, 20);
+            this.nSymbolListBox.Name = "nSymbolListBox";
+            this.nSymbolListBox.Size = new System.Drawing.Size(130, 244);
+            this.nSymbolListBox.TabIndex = 0;
+            // 
+            // tSymbolListBox
+            // 
+            this.tSymbolListBox.BackColor = System.Drawing.SystemColors.Window;
+            this.tSymbolListBox.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.tSymbolListBox.FormattingEnabled = true;
+            this.tSymbolListBox.ItemHeight = 12;
+            this.tSymbolListBox.Location = new System.Drawing.Point(60, 20);
+            this.tSymbolListBox.Name = "tSymbolListBox";
+            this.tSymbolListBox.Size = new System.Drawing.Size(130, 244);
+            this.tSymbolListBox.TabIndex = 0;
             // 
             // gramAnalyseButton
             // 
@@ -423,108 +528,15 @@
             this.descriptionToolStripMenuItem.Text = "系统说明";
             this.descriptionToolStripMenuItem.Click += new System.EventHandler(this.descriptionToolStripMenuItem_Click);
             // 
-            // gramSymbolGroupBox
+            // senAnalyseButton
             // 
-            this.gramSymbolGroupBox.Controls.Add(this.nSymbolLabel);
-            this.gramSymbolGroupBox.Controls.Add(this.tSymbolLabel);
-            this.gramSymbolGroupBox.Controls.Add(this.nSymbolListBox);
-            this.gramSymbolGroupBox.Controls.Add(this.tSymbolListBox);
-            this.gramSymbolGroupBox.Location = new System.Drawing.Point(658, 21);
-            this.gramSymbolGroupBox.Name = "gramSymbolGroupBox";
-            this.gramSymbolGroupBox.Size = new System.Drawing.Size(433, 271);
-            this.gramSymbolGroupBox.TabIndex = 3;
-            this.gramSymbolGroupBox.TabStop = false;
-            this.gramSymbolGroupBox.Text = "文法符号";
-            // 
-            // tSymbolListBox
-            // 
-            this.tSymbolListBox.BackColor = System.Drawing.SystemColors.Window;
-            this.tSymbolListBox.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.tSymbolListBox.FormattingEnabled = true;
-            this.tSymbolListBox.ItemHeight = 12;
-            this.tSymbolListBox.Location = new System.Drawing.Point(60, 20);
-            this.tSymbolListBox.Name = "tSymbolListBox";
-            this.tSymbolListBox.Size = new System.Drawing.Size(130, 244);
-            this.tSymbolListBox.TabIndex = 0;
-            // 
-            // tSymbolLabel
-            // 
-            this.tSymbolLabel.AutoSize = true;
-            this.tSymbolLabel.Location = new System.Drawing.Point(6, 23);
-            this.tSymbolLabel.Name = "tSymbolLabel";
-            this.tSymbolLabel.Size = new System.Drawing.Size(53, 12);
-            this.tSymbolLabel.TabIndex = 1;
-            this.tSymbolLabel.Text = "终结符：";
-            // 
-            // nSymbolLabel
-            // 
-            this.nSymbolLabel.AutoSize = true;
-            this.nSymbolLabel.Location = new System.Drawing.Point(218, 23);
-            this.nSymbolLabel.Name = "nSymbolLabel";
-            this.nSymbolLabel.Size = new System.Drawing.Size(65, 12);
-            this.nSymbolLabel.TabIndex = 1;
-            this.nSymbolLabel.Text = "非终结符：";
-            // 
-            // nSymbolListBox
-            // 
-            this.nSymbolListBox.BackColor = System.Drawing.SystemColors.Window;
-            this.nSymbolListBox.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.nSymbolListBox.FormattingEnabled = true;
-            this.nSymbolListBox.ItemHeight = 12;
-            this.nSymbolListBox.Location = new System.Drawing.Point(289, 20);
-            this.nSymbolListBox.Name = "nSymbolListBox";
-            this.nSymbolListBox.Size = new System.Drawing.Size(130, 244);
-            this.nSymbolListBox.TabIndex = 0;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.productionIndex,
-            this.left,
-            this.productionContent,
-            this.select集合,
-            this.followSet,
-            this.firstSet});
-            this.dataGridView1.Location = new System.Drawing.Point(24, 312);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(1067, 264);
-            this.dataGridView1.TabIndex = 4;
-            // 
-            // productionIndex
-            // 
-            this.productionIndex.HeaderText = "编号";
-            this.productionIndex.Name = "productionIndex";
-            // 
-            // left
-            // 
-            this.left.HeaderText = "左部";
-            this.left.Name = "left";
-            // 
-            // productionContent
-            // 
-            this.productionContent.HeaderText = "产生式";
-            this.productionContent.Name = "productionContent";
-            this.productionContent.Width = 200;
-            // 
-            // select集合
-            // 
-            this.select集合.HeaderText = "selectSet";
-            this.select集合.Name = "select集合";
-            this.select集合.Width = 210;
-            // 
-            // followSet
-            // 
-            this.followSet.HeaderText = "follow集合";
-            this.followSet.Name = "followSet";
-            this.followSet.Width = 210;
-            // 
-            // firstSet
-            // 
-            this.firstSet.HeaderText = "first集合";
-            this.firstSet.Name = "firstSet";
-            this.firstSet.Width = 210;
+            this.senAnalyseButton.Location = new System.Drawing.Point(595, 290);
+            this.senAnalyseButton.Name = "senAnalyseButton";
+            this.senAnalyseButton.Size = new System.Drawing.Size(75, 23);
+            this.senAnalyseButton.TabIndex = 10;
+            this.senAnalyseButton.Text = "句法分析";
+            this.senAnalyseButton.UseVisualStyleBackColor = true;
+            this.senAnalyseButton.Click += new System.EventHandler(this.senAnalyseButton_Click);
             // 
             // MainForm
             // 
@@ -547,12 +559,12 @@
             this.mainTabControl.ResumeLayout(false);
             this.scannerTabPage.ResumeLayout(false);
             this.grammerTabpage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gramResDataGridView)).EndInit();
+            this.gramSymbolGroupBox.ResumeLayout(false);
+            this.gramSymbolGroupBox.PerformLayout();
             this.grammerGroupBox.ResumeLayout(false);
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
-            this.gramSymbolGroupBox.ResumeLayout(false);
-            this.gramSymbolGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -601,13 +613,14 @@
         private System.Windows.Forms.ListBox tSymbolListBox;
         private System.Windows.Forms.Label nSymbolLabel;
         private System.Windows.Forms.ListBox nSymbolListBox;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView gramResDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn productionIndex;
         private System.Windows.Forms.DataGridViewTextBoxColumn left;
         private System.Windows.Forms.DataGridViewTextBoxColumn productionContent;
-        private System.Windows.Forms.DataGridViewTextBoxColumn select集合;
+        private System.Windows.Forms.DataGridViewTextBoxColumn selectSet;
         private System.Windows.Forms.DataGridViewTextBoxColumn followSet;
         private System.Windows.Forms.DataGridViewTextBoxColumn firstSet;
+        private System.Windows.Forms.Button senAnalyseButton;
     }
 }
 
