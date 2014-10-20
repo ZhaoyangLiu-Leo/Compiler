@@ -14,7 +14,7 @@ namespace LexicalAnalyzer
         public static string[] keyWords = { "asm", "auto", "break", "case", "cdecl", "char", "const", "continue", "default", "do", "double", "else", 
                                           "enum", "extern", "float", "far", "for", "goto", "if", "int", "interrupt", "long", "register", "return", "short",
                                           "signed", "sizeof", "static", "struct", "switch", "typedef", "union", "unsigned", "void", "volatile",
-                                          "while", "near", "pascal"};
+                                          "while", "near", "pascal", "include"};
         //转义字符的右半部分
         public static char[] escapeChars = {'r', '0', 't', 'v', 'b', 'f', 'a', '"', '\'', '\\' };
         //单界符

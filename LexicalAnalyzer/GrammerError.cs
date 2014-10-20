@@ -7,15 +7,23 @@ namespace LexicalAnalyzer
 {
     public class GrammerError
     {
+        private int lineIndex;              //预测分析的当前行
         private string stackTopStr;         //栈顶符号
         private string tokenStr;            //输入带当前符号
         private string errorInfo;           //错误信息
 
-        public GrammerError(string stackTopStr, string tokenStr, string errorInfo)
+        public GrammerError(int lineIndex, string stackTopStr, string tokenStr, string errorInfo)
         {
+            this.lineIndex = lineIndex;
             this.stackTopStr = stackTopStr;
             this.tokenStr = tokenStr;
             this.errorInfo = errorInfo;
+        }
+
+        public int LineIndex
+        {
+            get { return lineIndex; }
+            set { lineIndex = value; }
         }
 
         public string StackTopStr
@@ -38,7 +46,7 @@ namespace LexicalAnalyzer
 
         public override string ToString()
         {
-            return stackTopStr + "; " + tokenStr + "; " + errorInfo;
+            return lineIndex + "; " + stackTopStr + "; " + tokenStr + "; " + errorInfo;
         }
     }
 }

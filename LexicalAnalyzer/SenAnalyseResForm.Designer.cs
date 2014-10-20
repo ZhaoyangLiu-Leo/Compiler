@@ -29,21 +29,23 @@
         private void InitializeComponent()
         {
             this.forecastTableDataGridView = new System.Windows.Forms.DataGridView();
+            this.nSymbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.symbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.production = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.senResDataGridView = new System.Windows.Forms.DataGridView();
             this.tableGroupBox = new System.Windows.Forms.GroupBox();
             this.resGroupBox = new System.Windows.Forms.GroupBox();
             this.errorGroupBox = new System.Windows.Forms.GroupBox();
             this.senErrorDataGridView = new System.Windows.Forms.DataGridView();
             this.analyseResGroupBox = new System.Windows.Forms.GroupBox();
-            this.nSymbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.symbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.production = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.stackStr = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.inputStr = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.action = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.errorLineIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.errorStackStr = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.errorInputStr = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.errorInfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lineIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.stackStr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.inputStr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.action = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.forecastTableDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.senResDataGridView)).BeginInit();
             this.tableGroupBox.SuspendLayout();
@@ -66,10 +68,29 @@
             this.forecastTableDataGridView.Size = new System.Drawing.Size(450, 409);
             this.forecastTableDataGridView.TabIndex = 0;
             // 
+            // nSymbol
+            // 
+            this.nSymbol.HeaderText = "非终结符";
+            this.nSymbol.Name = "nSymbol";
+            this.nSymbol.Width = 80;
+            // 
+            // symbol
+            // 
+            this.symbol.HeaderText = "文法符号";
+            this.symbol.Name = "symbol";
+            this.symbol.Width = 80;
+            // 
+            // production
+            // 
+            this.production.HeaderText = "产生式";
+            this.production.Name = "production";
+            this.production.Width = 300;
+            // 
             // senResDataGridView
             // 
             this.senResDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.senResDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.lineIndex,
             this.stackStr,
             this.inputStr,
             this.action});
@@ -114,6 +135,7 @@
             // 
             this.senErrorDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.senErrorDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.errorLineIndex,
             this.errorStackStr,
             this.errorInputStr,
             this.errorInfo});
@@ -133,41 +155,11 @@
             this.analyseResGroupBox.TabStop = false;
             this.analyseResGroupBox.Text = "调用过程";
             // 
-            // nSymbol
+            // errorLineIndex
             // 
-            this.nSymbol.HeaderText = "非终结符";
-            this.nSymbol.Name = "nSymbol";
-            this.nSymbol.Width = 80;
-            // 
-            // symbol
-            // 
-            this.symbol.HeaderText = "文法符号";
-            this.symbol.Name = "symbol";
-            this.symbol.Width = 80;
-            // 
-            // production
-            // 
-            this.production.HeaderText = "产生式";
-            this.production.Name = "production";
-            this.production.Width = 300;
-            // 
-            // stackStr
-            // 
-            this.stackStr.HeaderText = "栈顶信息";
-            this.stackStr.Name = "stackStr";
-            this.stackStr.Width = 80;
-            // 
-            // inputStr
-            // 
-            this.inputStr.HeaderText = "输入符号";
-            this.inputStr.Name = "inputStr";
-            this.inputStr.Width = 80;
-            // 
-            // action
-            // 
-            this.action.HeaderText = "动作";
-            this.action.Name = "action";
-            this.action.Width = 260;
+            this.errorLineIndex.HeaderText = "错误行号";
+            this.errorLineIndex.Name = "errorLineIndex";
+            this.errorLineIndex.Width = 80;
             // 
             // errorStackStr
             // 
@@ -185,7 +177,31 @@
             // 
             this.errorInfo.HeaderText = "错误信息";
             this.errorInfo.Name = "errorInfo";
-            this.errorInfo.Width = 260;
+            this.errorInfo.Width = 200;
+            // 
+            // lineIndex
+            // 
+            this.lineIndex.HeaderText = "行号";
+            this.lineIndex.Name = "lineIndex";
+            this.lineIndex.Width = 80;
+            // 
+            // stackStr
+            // 
+            this.stackStr.HeaderText = "栈顶信息";
+            this.stackStr.Name = "stackStr";
+            this.stackStr.Width = 80;
+            // 
+            // inputStr
+            // 
+            this.inputStr.HeaderText = "输入符号";
+            this.inputStr.Name = "inputStr";
+            this.inputStr.Width = 80;
+            // 
+            // action
+            // 
+            this.action.HeaderText = "动作";
+            this.action.Name = "action";
+            this.action.Width = 200;
             // 
             // SenAnalyseResForm
             // 
@@ -221,11 +237,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nSymbol;
         private System.Windows.Forms.DataGridViewTextBoxColumn symbol;
         private System.Windows.Forms.DataGridViewTextBoxColumn production;
-        private System.Windows.Forms.DataGridViewTextBoxColumn stackStr;
-        private System.Windows.Forms.DataGridViewTextBoxColumn inputStr;
-        private System.Windows.Forms.DataGridViewTextBoxColumn action;
+        private System.Windows.Forms.DataGridViewTextBoxColumn errorLineIndex;
         private System.Windows.Forms.DataGridViewTextBoxColumn errorStackStr;
         private System.Windows.Forms.DataGridViewTextBoxColumn errorInputStr;
         private System.Windows.Forms.DataGridViewTextBoxColumn errorInfo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn lineIndex;
+        private System.Windows.Forms.DataGridViewTextBoxColumn stackStr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn inputStr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn action;
     }
 }

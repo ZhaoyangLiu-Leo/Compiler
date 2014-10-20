@@ -69,9 +69,10 @@ namespace LexicalAnalyzer
             foreach(SentenseResult sr in senAnalyseResList)
             {
                 index = senResDataGridView.Rows.Add();
-                senResDataGridView.Rows[index].Cells[0].Value = sr.StackStr;
-                senResDataGridView.Rows[index].Cells[1].Value = sr.InputStr;
-                senResDataGridView.Rows[index].Cells[2].Value = sr.Action;
+                senResDataGridView.Rows[index].Cells[0].Value = sr.LineIndex;
+                senResDataGridView.Rows[index].Cells[1].Value = sr.StackStr;
+                senResDataGridView.Rows[index].Cells[2].Value = sr.InputStr;
+                senResDataGridView.Rows[index].Cells[3].Value = sr.Action;
             }
         }
 
@@ -84,9 +85,10 @@ namespace LexicalAnalyzer
             foreach (GrammerError ge in gramErrorList)
             {
                 index = senErrorDataGridView.Rows.Add();
-                senErrorDataGridView.Rows[index].Cells[0].Value = ge.StackTopStr;
-                senErrorDataGridView.Rows[index].Cells[1].Value = ge.TokenStr;
-                senErrorDataGridView.Rows[index].Cells[2].Value = ge.ErrorInfo;
+                senErrorDataGridView.Rows[index].Cells[0].Value = ge.LineIndex;
+                senErrorDataGridView.Rows[index].Cells[1].Value = ge.StackTopStr;
+                senErrorDataGridView.Rows[index].Cells[2].Value = ge.TokenStr;
+                senErrorDataGridView.Rows[index].Cells[3].Value = ge.ErrorInfo;
             }
         }
     }

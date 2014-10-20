@@ -52,7 +52,6 @@
             this.symbolIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.importButton = new System.Windows.Forms.Button();
             this.mainTabControl = new System.Windows.Forms.TabControl();
-            this.scannerTabPage = new System.Windows.Forms.TabPage();
             this.grammerTabpage = new System.Windows.Forms.TabPage();
             this.gramResDataGridView = new System.Windows.Forms.DataGridView();
             this.productionIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -70,13 +69,14 @@
             this.importGramButton = new System.Windows.Forms.Button();
             this.grammerGroupBox = new System.Windows.Forms.GroupBox();
             this.gramContentRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.scannerTabPage = new System.Windows.Forms.TabPage();
+            this.senAnalyseButton = new System.Windows.Forms.Button();
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.发射点ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scannerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grammerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.descriptionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.senAnalyseButton = new System.Windows.Forms.Button();
             this.resGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tokenDataGridView)).BeginInit();
             this.codeGroupBox.SuspendLayout();
@@ -85,11 +85,11 @@
             this.symbolGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.symbolDataGridView)).BeginInit();
             this.mainTabControl.SuspendLayout();
-            this.scannerTabPage.SuspendLayout();
             this.grammerTabpage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gramResDataGridView)).BeginInit();
             this.gramSymbolGroupBox.SuspendLayout();
             this.grammerGroupBox.SuspendLayout();
+            this.scannerTabPage.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -98,6 +98,7 @@
             this.indexRichTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.indexRichTextBox.Location = new System.Drawing.Point(9, 20);
             this.indexRichTextBox.Name = "indexRichTextBox";
+            this.indexRichTextBox.ReadOnly = true;
             this.indexRichTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.indexRichTextBox.Size = new System.Drawing.Size(33, 306);
             this.indexRichTextBox.TabIndex = 1;
@@ -303,24 +304,6 @@
             this.mainTabControl.Size = new System.Drawing.Size(1117, 624);
             this.mainTabControl.TabIndex = 0;
             // 
-            // scannerTabPage
-            // 
-            this.scannerTabPage.Controls.Add(this.senAnalyseButton);
-            this.scannerTabPage.Controls.Add(this.compileButton);
-            this.scannerTabPage.Controls.Add(this.symbolGroupBox);
-            this.scannerTabPage.Controls.Add(this.importButton);
-            this.scannerTabPage.Controls.Add(this.errorGroupBox);
-            this.scannerTabPage.Controls.Add(this.resetButton);
-            this.scannerTabPage.Controls.Add(this.resGroupBox);
-            this.scannerTabPage.Controls.Add(this.codeGroupBox);
-            this.scannerTabPage.Location = new System.Drawing.Point(4, 22);
-            this.scannerTabPage.Name = "scannerTabPage";
-            this.scannerTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.scannerTabPage.Size = new System.Drawing.Size(1109, 598);
-            this.scannerTabPage.TabIndex = 0;
-            this.scannerTabPage.Text = "词法分析";
-            this.scannerTabPage.UseVisualStyleBackColor = true;
-            // 
             // grammerTabpage
             // 
             this.grammerTabpage.Controls.Add(this.gramResDataGridView);
@@ -479,6 +462,34 @@
             this.gramContentRichTextBox.TabIndex = 0;
             this.gramContentRichTextBox.Text = "";
             // 
+            // scannerTabPage
+            // 
+            this.scannerTabPage.Controls.Add(this.senAnalyseButton);
+            this.scannerTabPage.Controls.Add(this.compileButton);
+            this.scannerTabPage.Controls.Add(this.symbolGroupBox);
+            this.scannerTabPage.Controls.Add(this.importButton);
+            this.scannerTabPage.Controls.Add(this.errorGroupBox);
+            this.scannerTabPage.Controls.Add(this.resetButton);
+            this.scannerTabPage.Controls.Add(this.resGroupBox);
+            this.scannerTabPage.Controls.Add(this.codeGroupBox);
+            this.scannerTabPage.Location = new System.Drawing.Point(4, 22);
+            this.scannerTabPage.Name = "scannerTabPage";
+            this.scannerTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.scannerTabPage.Size = new System.Drawing.Size(1109, 598);
+            this.scannerTabPage.TabIndex = 0;
+            this.scannerTabPage.Text = "词法分析";
+            this.scannerTabPage.UseVisualStyleBackColor = true;
+            // 
+            // senAnalyseButton
+            // 
+            this.senAnalyseButton.Location = new System.Drawing.Point(595, 290);
+            this.senAnalyseButton.Name = "senAnalyseButton";
+            this.senAnalyseButton.Size = new System.Drawing.Size(75, 23);
+            this.senAnalyseButton.TabIndex = 10;
+            this.senAnalyseButton.Text = "句法分析";
+            this.senAnalyseButton.UseVisualStyleBackColor = true;
+            this.senAnalyseButton.Click += new System.EventHandler(this.senAnalyseButton_Click);
+            // 
             // mainMenuStrip
             // 
             this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -528,16 +539,6 @@
             this.descriptionToolStripMenuItem.Text = "系统说明";
             this.descriptionToolStripMenuItem.Click += new System.EventHandler(this.descriptionToolStripMenuItem_Click);
             // 
-            // senAnalyseButton
-            // 
-            this.senAnalyseButton.Location = new System.Drawing.Point(595, 290);
-            this.senAnalyseButton.Name = "senAnalyseButton";
-            this.senAnalyseButton.Size = new System.Drawing.Size(75, 23);
-            this.senAnalyseButton.TabIndex = 10;
-            this.senAnalyseButton.Text = "句法分析";
-            this.senAnalyseButton.UseVisualStyleBackColor = true;
-            this.senAnalyseButton.Click += new System.EventHandler(this.senAnalyseButton_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -557,12 +558,12 @@
             this.symbolGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.symbolDataGridView)).EndInit();
             this.mainTabControl.ResumeLayout(false);
-            this.scannerTabPage.ResumeLayout(false);
             this.grammerTabpage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gramResDataGridView)).EndInit();
             this.gramSymbolGroupBox.ResumeLayout(false);
             this.gramSymbolGroupBox.PerformLayout();
             this.grammerGroupBox.ResumeLayout(false);
+            this.scannerTabPage.ResumeLayout(false);
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
             this.ResumeLayout(false);

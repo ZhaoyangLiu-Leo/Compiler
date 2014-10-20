@@ -7,15 +7,23 @@ namespace LexicalAnalyzer
 {
     public class SentenseResult
     {
+        private int lineIndex;              //预测分析的当前行
         private string stackStr;            //栈顶符号
         private string inputStr;            //输入带当前符号
         private string action;              //动作信息，匹配或者产生式调用
 
-        public SentenseResult(string stackStr, string inputStr, string action)
+        public SentenseResult(int lineIndex, string stackStr, string inputStr, string action)
         {
+            this.lineIndex = lineIndex;
             this.stackStr = stackStr;
             this.inputStr = inputStr;
             this.action = action;
+        }
+
+        public int LineIndex
+        {
+            get { return lineIndex; }
+            set { lineIndex = value; }
         }
 
         public string StackStr
@@ -38,7 +46,7 @@ namespace LexicalAnalyzer
 
         public override string ToString()
         {
-            return stackStr + "; " + inputStr + "; " + action;
+            return lineIndex + "; " + stackStr + "; " + inputStr + "; " + action;
         }
     }
 }

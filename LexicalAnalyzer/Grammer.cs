@@ -245,7 +245,7 @@ namespace LexicalAnalyzer
                         //排除first集并运算引入的$符号
                         nonSymbol.First.Remove("$");
 
-                        //当前终结符可推空，添加$符号
+                        //当前非终结符可推空，添加$符号
                         if (isLeadNull(p.Left))
                         {
                             nonSymbol.First.Add("$");
@@ -350,7 +350,7 @@ namespace LexicalAnalyzer
                             }
                             nonSymbol.Follow.UnionWith(computeStrListFirst(tempList));
 
-                            if (isSymbolListNull(tempList) && (!p.Left.Equals(p.Right[i])))
+                            if ((computeStrListFirst(tempList).Contains("$") || tempList.Count == 0) && (!p.Left.Equals(p.Right[i])))
                             {
                                 NonterminalSymbol nonSymbolLeft = nSymbolTable[p.Left] as NonterminalSymbol;
                                 nonSymbol.Follow.UnionWith(nonSymbolLeft.Follow);
@@ -382,14 +382,14 @@ namespace LexicalAnalyzer
             //去除follow集中的$符号
             foreach (DictionaryEntry de in nSymbolTable)
             {
-                //Console.Write(de.Key + " follow:");
+                Console.Write(de.Key + " follow:");
                 nonSymbol = de.Value as NonterminalSymbol;
                 nonSymbol.Follow.Remove("$");
-                //foreach (string str in nonSymbol.Follow)
-                //{
-                //    Console.Write(str + " ");
-                //}
-                //Console.WriteLine("");
+                foreach (string str in nonSymbol.Follow)
+                {
+                    Console.Write(str + " ");
+                }
+                Console.WriteLine("");
             }
         }
 

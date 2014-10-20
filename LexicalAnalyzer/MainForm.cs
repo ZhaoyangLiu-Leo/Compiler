@@ -13,20 +13,20 @@ namespace LexicalAnalyzer
 {
     public partial class MainForm : Form
     {
-        private string codeStr;
+        private string codeStr;                         //待分析的程序代码
         private string gramStr = "";
-        private List<TokenResult> tokenResList;
-        private List<Error> errorList;
-        private List<Symbol> symbolList;
-        private HashSet<string> tSymbols;
-        private HashSet<string> nSymbols;
-        private List<Production> productions;
-        private Hashtable nSymbolTable;
-        private List<SentenseResult> sentenseResList;
-        private Hashtable forecastTable;
-        private bool isLL1Grammer;
-        private List<GrammerError> grammerErrorList;
-        private Grammer grammer;
+        private List<TokenResult> tokenResList;         //token分析结果list
+        private List<Error> errorList;                  //词法分析错误信息list
+        private List<Symbol> symbolList;                //符号表信息list
+        private HashSet<string> tSymbols;               //终结符集合
+        private HashSet<string> nSymbols;               //非终结符集合
+        private List<Production> productions;           //产生式集合
+        private Hashtable nSymbolTable;                 //非终结符映射非终结符类的hashtable
+        private List<SentenseResult> sentenseResList;   //句法分析结果list
+        private Hashtable forecastTable;                //预测分析表
+        private bool isLL1Grammer;                      //标志位，记录文法是否是LL(1)文法
+        private List<GrammerError> grammerErrorList;    //句法分析错误list
+        private Grammer grammer;                        //句法分析类
 
         public MainForm()
         {
@@ -360,9 +360,13 @@ namespace LexicalAnalyzer
             }
         }
 
+        /// <summary>
+        /// 预测分析过程处理函数
+        /// </summary>
         private void forecastAnalyse()
         {
             int tokenIndex = 0;
+            int lineIndex = 0;
             sentenseResList = new List<SentenseResult>();
             grammerErrorList = new List<GrammerError>();
             GrammerError gramError;
@@ -370,58 +374,55 @@ namespace LexicalAnalyzer
 
             Stack<string> symbolStack = new Stack<string>();
             string forecastKey;
-            string inputStr;
-            List<string> tempList;
+            string inputStr;           
             string actionStr;
 
             symbolStack.Push("@");
             symbolStack.Push("S");
             string symbol = symbolStack.Peek();
             Token token = new Token("@", "_");
-            tokenResList.Add(new TokenResult("@", token, -1, null, -1));
+            tokenResList.Add(new TokenResult("@", token, -1, null, tokenResList[tokenResList.Count - 1].LineIndex));
 
-            while (!symbol.Equals("@") && tokenIndex < tokenResList.Count)
+            while (!(symbol.Equals("@") || symbol.Equals(""))&& tokenIndex < tokenResList.Count)
             {
                 inputStr = tokenResList[tokenIndex].Token.TokenName;
+                lineIndex = tokenResList[tokenIndex].LineIndex;
                 forecastKey = symbol + " " + inputStr;
+                //匹配，弹栈，输入带指针移动
                 if (symbol.Equals(inputStr))
                 {
-                    senRes = new SentenseResult(symbol, inputStr, "匹配 " + inputStr);
+                    senRes = new SentenseResult(lineIndex, symbol, inputStr, "匹配 " + inputStr);
                     sentenseResList.Add(senRes);
                     symbolStack.Pop();
                     tokenIndex++;
                 }
                 else if (tSymbols.Contains(symbol))
                 {
-                    gramError = new GrammerError(symbol, inputStr, "栈顶出现不匹配的终结符");
+                    //栈顶出现终结符，弹出栈顶元素
+                    gramError = new GrammerError(lineIndex, symbol, inputStr, "栈顶出现不匹配的终结符");
                     grammerErrorList.Add(gramError);
                     symbolStack.Pop();
                 }
                 else if (!forecastTable.Contains(forecastKey))
                 {
-                    //if (grammer.isLeadNull(symbol))
-                    //{
-                    //    symbolStack.Pop();
-                    //}
-                    //else
-                    //{
-                        gramError = new GrammerError(symbol, inputStr, "当前输入符号不在栈顶元素的select集或follow集中");
-                        grammerErrorList.Add(gramError);
-                        tokenIndex++;
-                    //}
+                    //预测分析表中不存在
+                    gramError = new GrammerError(lineIndex, symbol, inputStr, "当前输入符号不在栈顶元素的select集或follow集中");
+                    grammerErrorList.Add(gramError);
+                    tokenIndex++;                  
                 }
                 else if (forecastTable.Contains(forecastKey))
                 {
-                    tempList = forecastTable[forecastKey] as List<string>;
+                    List<string> tempList = forecastTable[forecastKey] as List<string>;
                     if (tempList[0].Equals("synch"))
                     {
-                        gramError = new GrammerError(symbol, inputStr, "当前输入符号不在栈顶元素的select集中但在follow集中");
+                        gramError = new GrammerError(lineIndex, symbol, inputStr, "当前输入符号不在栈顶元素的select集中但在follow集中");
                         grammerErrorList.Add(gramError);
                         symbolStack.Pop();
                     }
                     else if (tempList[0].Equals("$"))
                     {
-                        senRes = new SentenseResult(symbol, inputStr, "输出 " + symbol + " -> $");
+                        //文法符号推空的话，直接弹栈
+                        senRes = new SentenseResult(lineIndex, symbol, inputStr, "输出 " + symbol + " -> $");
                         sentenseResList.Add(senRes);
                         symbolStack.Pop();
                     }
@@ -437,7 +438,7 @@ namespace LexicalAnalyzer
                         {
                             actionStr = actionStr + " " + str;
                         }
-                        senRes = new SentenseResult(symbol, inputStr, "输出 " + symbol + " -> " + actionStr);
+                        senRes = new SentenseResult(lineIndex, symbol, inputStr, "输出 " + symbol + " -> " + actionStr);
                         sentenseResList.Add(senRes);
                     }
                 }
