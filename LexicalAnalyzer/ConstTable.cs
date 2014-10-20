@@ -10,12 +10,16 @@ namespace LexicalAnalyzer
     /// </summary>
     class ConstTable
     {
+        //关键字
         public static string[] keyWords = { "asm", "auto", "break", "case", "cdecl", "char", "const", "continue", "default", "do", "double", "else", 
                                           "enum", "extern", "float", "far", "for", "goto", "if", "int", "interrupt", "long", "register", "return", "short",
                                           "signed", "sizeof", "static", "struct", "switch", "typedef", "union", "unsigned", "void", "volatile",
-                                          "while", "near", "pascal"};
+                                          "while", "near", "pascal", "include"};
+        //转义字符的右半部分
         public static char[] escapeChars = {'r', '0', 't', 'v', 'b', 'f', 'a', '"', '\'', '\\' };
+        //单界符
         public static char[] singleChars = { '{', '}', '[', ']', '(', ')', '~', ',', ';', '.', '#', '?', ':' };
+        //种别码映射
         public static string[] typeStrs = { "IDN", "asm", "auto", "break", "case", "cdecl", "char", "const", "continue", "default", "do", "double", "else", 
                                           "enum", "extern", "float", "far", "for", "goto", "if", "int", "interrupt", "long", "register", "return", "short",
                                           "signed", "sizeof", "static", "struct", "switch", "typedef", "union", "unsigned", "void", "volatile",
