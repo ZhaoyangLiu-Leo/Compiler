@@ -68,7 +68,7 @@ namespace LexicalAnalyzer
             int lastIndex = this.contentRichTextBox.GetCharIndexFromPosition(pos);
             int lastLine = this.contentRichTextBox.GetLineFromCharIndex(lastIndex);
 
-            Console.WriteLine("LastLine:" + lastLine);
+            //Console.WriteLine("LastLine:" + lastLine);
 
             for (int i = firstLine; i <= lastLine; i++)
             {
@@ -335,13 +335,12 @@ namespace LexicalAnalyzer
         //文法分析按钮处理函数
         private void senAnalyseButton_Click(object sender, EventArgs e)
         {
-            if (productions.Count == 0)
+            if (productions == null || productions.Count == 0)
             {
                 MessageBox.Show("请先到文法规则页面，生成文法规则");
-                mainTabControl.SelectedTab = grammerTabpage;
                 return;
             }
-            else if (tokenResList.Count == 0)
+            else if (tokenResList == null || tokenResList.Count == 0)
             {
                 MessageBox.Show("请先进行词法分析");
                 return;
@@ -415,7 +414,7 @@ namespace LexicalAnalyzer
                     List<string> tempList = forecastTable[forecastKey] as List<string>;
                     if (tempList[0].Equals("synch"))
                     {
-                        gramError = new GrammerError(lineIndex, symbol, inputStr, "当前输入符号不在栈顶元素的select集中但在follow集中");
+                        gramError = new GrammerError(lineIndex, symbol, inputStr, "输入符号为当前栈顶符号的同步记号");
                         grammerErrorList.Add(gramError);
                         symbolStack.Pop();
                     }

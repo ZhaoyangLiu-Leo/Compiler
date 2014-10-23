@@ -28,6 +28,13 @@ namespace LexicalAnalyzer
         /// <summary>
         /// 句法分析功能函数
         /// </summary>
+        /// <param name="gramContent">文法定义</param>
+        /// <param name="outTSymbols">终结符符号集合</param>
+        /// <param name="outNSymbols">非终结符符号集合</param>
+        /// <param name="outNSymbolTable">非终结符到非终结符类的hashtable</param>
+        /// <param name="outProductions">文法中的产生式集合</param>
+        /// <param name="outForecastTable">预测分析表</param>
+        /// <returns>当前文法是否符合LL(1)文法</returns>
         public bool grammerAnalyse(string gramContent, out HashSet<string> outTSymbols,
             out HashSet<string> outNSymbols, out Hashtable outNSymbolTable, out List<Production> outProductions, out Hashtable outForecastTable)
         {
@@ -82,6 +89,8 @@ namespace LexicalAnalyzer
         /// <summary>
         /// 判断符号是否能够推出空
         /// </summary>
+        /// <param name="symbol">文法符号</param>
+        /// <returns>true，可推空；false，不可推空</returns>
         public bool isLeadNull(string symbol)
         {
             bool flag = false;
@@ -145,6 +154,8 @@ namespace LexicalAnalyzer
         /// <summary>
         /// 判断是否是终结符
         /// </summary>
+        /// <param name="str">文法符号</param>
+        /// <returns></returns>
         private bool isTerminalSymbol(string str)
         {
             bool flag = false;
@@ -382,14 +393,14 @@ namespace LexicalAnalyzer
             //去除follow集中的$符号
             foreach (DictionaryEntry de in nSymbolTable)
             {
-                Console.Write(de.Key + " follow:");
+                //Console.Write(de.Key + " follow:");
                 nonSymbol = de.Value as NonterminalSymbol;
                 nonSymbol.Follow.Remove("$");
-                foreach (string str in nonSymbol.Follow)
-                {
-                    Console.Write(str + " ");
-                }
-                Console.WriteLine("");
+                //foreach (string str in nonSymbol.Follow)
+                //{
+                //    Console.Write(str + " ");
+                //}
+                //Console.WriteLine("");
             }
         }
 

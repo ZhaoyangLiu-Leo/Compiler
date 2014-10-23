@@ -7,9 +7,9 @@ namespace LexicalAnalyzer
 {
     class NonterminalSymbol
     {
-        private string nChar;
-        private HashSet<string> first;
-        private HashSet<string> follow;
+        private string nChar;                       //非终结符
+        private HashSet<string> first;              //非终结符对应的first集
+        private HashSet<string> follow;             //非终结符对应得follow集
 
         public NonterminalSymbol(string nChar)
         {
