@@ -15,6 +15,8 @@ namespace LexicalAnalyzer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            ActionRecord actionRecord = new ActionRecord();
+            //actionRecord.excuteAction("act0");
             Application.Run(new MainForm());
         }
     }

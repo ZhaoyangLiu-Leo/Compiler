@@ -8,7 +8,8 @@ namespace LexicalAnalyzer
 {
     class Grammer
     {
-        private List<Production> productions;           //产生式list
+        private List<Production> productions;           //不带语义动作产生式list
+        private List<Production> actionProductions;     //带语义动作的产生式list
         private HashSet<string> tSymbols;               //终结符集合
         private HashSet<string> nSymbols;               //非终结符集合
         private Hashtable nSymbolTable;                 //非终结符映射非终结符类的hashtable
@@ -18,6 +19,7 @@ namespace LexicalAnalyzer
         public Grammer()
         {
             productions = new List<Production>();
+            actionProductions = new List<Production>();
             tSymbols = new HashSet<string>();
             nSymbols = new HashSet<string>();
             nSymbolTable = new Hashtable();
@@ -36,10 +38,12 @@ namespace LexicalAnalyzer
         /// <param name="outForecastTable">预测分析表</param>
         /// <returns>当前文法是否符合LL(1)文法</returns>
         public bool grammerAnalyse(string gramContent, out HashSet<string> outTSymbols,
-            out HashSet<string> outNSymbols, out Hashtable outNSymbolTable, out List<Production> outProductions, out Hashtable outForecastTable)
+            out HashSet<string> outNSymbols, out Hashtable outNSymbolTable, out List<Production> outProductions, out Hashtable outForecastTable, 
+            out List<Production> outActionProductions)
         {
             Production p;
             List<string> right;
+            List<string> withActRight;
             bool flag = false;
 
             //将文法规则按行划分
@@ -50,16 +54,23 @@ namespace LexicalAnalyzer
                 //将文法规则的每一行按空格划分
                 string[] gramSymbol = gramLine[i].Split(' ');
                 right = new List<string>();
+                withActRight = new List<string>();
 
                 for (int j = 2; j < gramSymbol.Length; j++)
                 {
-                    //统计文法符号，填充产生式右部
-                    tSymbols.Add(gramSymbol[j]);
-                    right.Add(gramSymbol[j]);
+                    //统计文法符号，填充产生式右部，过滤语义动作
+                    if (!gramSymbol[j][0].ToString().Equals("#"))
+                    {
+                        tSymbols.Add(gramSymbol[j]);
+                        right.Add(gramSymbol[j]);
+                    }
+                    withActRight.Add(gramSymbol[j]);
                 }
 
                 p = new Production(gramSymbol[0], right);
                 productions.Add(p);
+                p = new Production(gramSymbol[0], withActRight);
+                actionProductions.Add(p);
                 nSymbols.Add(gramSymbol[0]);
             }
 
@@ -83,6 +94,7 @@ namespace LexicalAnalyzer
             outProductions = productions;
             outNSymbolTable = nSymbolTable;
             outForecastTable = forecastTable;
+            outActionProductions = actionProductions;
             return flag;
         }
 
@@ -473,6 +485,12 @@ namespace LexicalAnalyzer
                     p.SelectStr.Remove("$");
                 }
             }
+
+            //为带有语义动作的产生式赋值select集
+            for (int i = 0; i < productions.Count; i++)
+            {
+                actionProductions[i].SelectStr = productions[i].SelectStr;
+            }
             //foreach (Production p in productions)
             //{
             //    Console.Write(p + "; select: ");
@@ -525,7 +543,8 @@ namespace LexicalAnalyzer
 
             forecastTable = new Hashtable();
             //添加select集
-            foreach (Production p in productions)
+
+            foreach (Production p in actionProductions)
             {
                 foreach (string str in p.SelectStr)
                 {
