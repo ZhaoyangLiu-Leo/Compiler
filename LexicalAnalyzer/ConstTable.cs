@@ -27,5 +27,21 @@ namespace LexicalAnalyzer
                                           "#", "?", ":", "<<", ">>", "<", "<=", ">", ">=", "=", "==", "|", "||", "|=", "^", "^=", "&", "&&", "&=", "%",
                                            "%=", "+", "++", "+=", "-", "--", "-=", "->", "/", "/=", "*", "*=", "!", "!=", "INT10", "INT16", "INT8", "FLOAT", 
                                            "CHAR", "STR" };
+        //关系运算符
+        public static string[] relops = { "<", "<=", "==", "!=", ">", ">=" };
+
+        public static bool isRelop(string str)
+        {
+            bool flag = false;
+            foreach (string s in relops)
+            {
+                if (s.Equals(str))
+                {
+                    flag = true;
+                    break;
+                }
+            }
+            return flag;
+        }
     }
 }

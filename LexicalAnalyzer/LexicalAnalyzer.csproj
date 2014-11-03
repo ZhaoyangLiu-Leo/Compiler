@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionRecord.cs" />
     <Compile Include="ConstTable.cs" />
     <Compile Include="Error.cs" />
     <Compile Include="GrammerError.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scanner.cs" />
+    <Compile Include="SemanicError.cs" />
     <Compile Include="SenAnalyseResForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,7 +69,7 @@
     <Compile Include="SentenseResult.cs" />
     <Compile Include="Symbol.cs" />
     <Compile Include="Grammer.cs" />
-    <Compile Include="TerminalSymbol.cs" />
+    <Compile Include="SynRecord.cs" />
     <Compile Include="Token.cs" />
     <Compile Include="TokenResult.cs" />
     <EmbeddedResource Include="MainForm.resx">

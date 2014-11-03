@@ -135,7 +135,7 @@ namespace LexicalAnalyzer
                             if (flag < 0)
                             {
                                 pointerIndex = add2SymbolList(str, lineIndex);
-                                add2TokenResList(str, "IDN", pointerIndex.ToString(), 256, "标识符", lineIndex);
+                                add2TokenResList(str, "IDN", str, 256, "标识符", lineIndex);
                                 
                             }
                             else

@@ -69,7 +69,7 @@
             this.importGramButton = new System.Windows.Forms.Button();
             this.grammerGroupBox = new System.Windows.Forms.GroupBox();
             this.gramContentRichTextBox = new System.Windows.Forms.RichTextBox();
-            this.scannerTabPage = new System.Windows.Forms.TabPage();
+            this.analyseTabPage = new System.Windows.Forms.TabPage();
             this.senAnalyseButton = new System.Windows.Forms.Button();
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.发射点ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -89,7 +89,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gramResDataGridView)).BeginInit();
             this.gramSymbolGroupBox.SuspendLayout();
             this.grammerGroupBox.SuspendLayout();
-            this.scannerTabPage.SuspendLayout();
+            this.analyseTabPage.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -173,9 +173,9 @@
             // 
             // resetButton
             // 
-            this.resetButton.Location = new System.Drawing.Point(595, 136);
+            this.resetButton.Location = new System.Drawing.Point(586, 136);
             this.resetButton.Name = "resetButton";
-            this.resetButton.Size = new System.Drawing.Size(75, 23);
+            this.resetButton.Size = new System.Drawing.Size(93, 23);
             this.resetButton.TabIndex = 1;
             this.resetButton.Text = "重置";
             this.resetButton.UseVisualStyleBackColor = true;
@@ -183,9 +183,9 @@
             // 
             // compileButton
             // 
-            this.compileButton.Location = new System.Drawing.Point(595, 213);
+            this.compileButton.Location = new System.Drawing.Point(586, 213);
             this.compileButton.Name = "compileButton";
-            this.compileButton.Size = new System.Drawing.Size(75, 23);
+            this.compileButton.Size = new System.Drawing.Size(93, 23);
             this.compileButton.TabIndex = 2;
             this.compileButton.Text = "词法分析";
             this.compileButton.UseVisualStyleBackColor = true;
@@ -286,9 +286,9 @@
             // 
             // importButton
             // 
-            this.importButton.Location = new System.Drawing.Point(595, 59);
+            this.importButton.Location = new System.Drawing.Point(586, 59);
             this.importButton.Name = "importButton";
-            this.importButton.Size = new System.Drawing.Size(75, 23);
+            this.importButton.Size = new System.Drawing.Size(93, 23);
             this.importButton.TabIndex = 0;
             this.importButton.Text = "导入";
             this.importButton.UseVisualStyleBackColor = true;
@@ -297,7 +297,7 @@
             // mainTabControl
             // 
             this.mainTabControl.Controls.Add(this.grammerTabpage);
-            this.mainTabControl.Controls.Add(this.scannerTabPage);
+            this.mainTabControl.Controls.Add(this.analyseTabPage);
             this.mainTabControl.Location = new System.Drawing.Point(12, 27);
             this.mainTabControl.Name = "mainTabControl";
             this.mainTabControl.SelectedIndex = 0;
@@ -462,31 +462,31 @@
             this.gramContentRichTextBox.TabIndex = 0;
             this.gramContentRichTextBox.Text = "";
             // 
-            // scannerTabPage
+            // analyseTabPage
             // 
-            this.scannerTabPage.Controls.Add(this.senAnalyseButton);
-            this.scannerTabPage.Controls.Add(this.compileButton);
-            this.scannerTabPage.Controls.Add(this.symbolGroupBox);
-            this.scannerTabPage.Controls.Add(this.importButton);
-            this.scannerTabPage.Controls.Add(this.errorGroupBox);
-            this.scannerTabPage.Controls.Add(this.resetButton);
-            this.scannerTabPage.Controls.Add(this.resGroupBox);
-            this.scannerTabPage.Controls.Add(this.codeGroupBox);
-            this.scannerTabPage.Location = new System.Drawing.Point(4, 22);
-            this.scannerTabPage.Name = "scannerTabPage";
-            this.scannerTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.scannerTabPage.Size = new System.Drawing.Size(1109, 598);
-            this.scannerTabPage.TabIndex = 0;
-            this.scannerTabPage.Text = "词法分析";
-            this.scannerTabPage.UseVisualStyleBackColor = true;
+            this.analyseTabPage.Controls.Add(this.senAnalyseButton);
+            this.analyseTabPage.Controls.Add(this.compileButton);
+            this.analyseTabPage.Controls.Add(this.symbolGroupBox);
+            this.analyseTabPage.Controls.Add(this.importButton);
+            this.analyseTabPage.Controls.Add(this.errorGroupBox);
+            this.analyseTabPage.Controls.Add(this.resetButton);
+            this.analyseTabPage.Controls.Add(this.resGroupBox);
+            this.analyseTabPage.Controls.Add(this.codeGroupBox);
+            this.analyseTabPage.Location = new System.Drawing.Point(4, 22);
+            this.analyseTabPage.Name = "analyseTabPage";
+            this.analyseTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.analyseTabPage.Size = new System.Drawing.Size(1109, 598);
+            this.analyseTabPage.TabIndex = 0;
+            this.analyseTabPage.Text = "主面板";
+            this.analyseTabPage.UseVisualStyleBackColor = true;
             // 
             // senAnalyseButton
             // 
-            this.senAnalyseButton.Location = new System.Drawing.Point(595, 290);
+            this.senAnalyseButton.Location = new System.Drawing.Point(586, 290);
             this.senAnalyseButton.Name = "senAnalyseButton";
-            this.senAnalyseButton.Size = new System.Drawing.Size(75, 23);
+            this.senAnalyseButton.Size = new System.Drawing.Size(93, 23);
             this.senAnalyseButton.TabIndex = 10;
-            this.senAnalyseButton.Text = "句法分析";
+            this.senAnalyseButton.Text = "语法制导翻译";
             this.senAnalyseButton.UseVisualStyleBackColor = true;
             this.senAnalyseButton.Click += new System.EventHandler(this.senAnalyseButton_Click);
             // 
@@ -563,7 +563,7 @@
             this.gramSymbolGroupBox.ResumeLayout(false);
             this.gramSymbolGroupBox.PerformLayout();
             this.grammerGroupBox.ResumeLayout(false);
-            this.scannerTabPage.ResumeLayout(false);
+            this.analyseTabPage.ResumeLayout(false);
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -597,7 +597,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn symbolName;
         private System.Windows.Forms.DataGridViewTextBoxColumn symbolIndex;
         private System.Windows.Forms.TabControl mainTabControl;
-        private System.Windows.Forms.TabPage scannerTabPage;
+        private System.Windows.Forms.TabPage analyseTabPage;
         private System.Windows.Forms.TabPage grammerTabpage;
         private System.Windows.Forms.MenuStrip mainMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem 发射点ToolStripMenuItem;
