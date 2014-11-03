@@ -1,0 +1,43 @@
+S -> #act0 declare_stmt excute_stmts
+declare_stmt -> type IDN ; #act1 declare_stmt
+declare_stmt -> $
+type -> basic_type #act2 array #act3
+basic_type -> int #act4
+basic_type -> short #act5
+basic_type -> long #act6
+basic_type -> char #act7
+basic_type -> float #act8
+basic_type -> double #act9
+array -> $ #act10
+array -> [ INT10 ] array #act11
+excute_stmts -> excute_stmt excute_stmts
+excute_stmts -> $
+excute_stmt -> assign_stmt
+assign_stmt -> IDN = expression ; #act12
+expression -> item expression' #act13
+expression' -> + item expression' #act14
+expression' -> $ #act15
+item -> factor item' #act16
+item' -> * factor item' #act17
+item' -> $ #act18
+factor -> ( expression ) #act19
+factor -> IDN #act20
+factor -> INT10 #act21
+excute_stmt -> flow_of_control_stmt
+flow_of_control_stmt -> if ( bool_expression ) #act22 { excute_stmts } else_stmt
+flow_of_control_stmt -> while #act23 ( bool_expression ) #act22 { excute_stmts #act24 }
+else_stmt -> else #act25 { excute_stmts }
+else_stmt -> $ #act25
+bool_expression -> expression rel expression #act26 bool_expression'
+bool_expression -> ! expression rel expression #act27 bool_expression'
+bool_expression' -> bool_operator M bool_expression #act28
+M -> $ #act29
+bool_expression' -> $
+bool_operator -> && #act30
+bool_operator -> || #act31
+rel -> < #act32
+rel -> <= #act32
+rel -> == #act32
+rel -> != #act32
+rel -> > #act32
+rel -> >= #act32
