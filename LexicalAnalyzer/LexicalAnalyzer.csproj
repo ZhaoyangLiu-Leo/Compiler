@@ -45,7 +45,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionRecord.cs" />
-    <Compile Include="ComRecord.cs" />
     <Compile Include="ConstTable.cs" />
     <Compile Include="Error.cs" />
     <Compile Include="GrammerError.cs" />

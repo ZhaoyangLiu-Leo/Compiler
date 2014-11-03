@@ -32,7 +32,6 @@ namespace LexicalAnalyzer
         private Grammer grammer;                        //句法分析类
 
         private Hashtable synRecordTable;               //综合属性
-        private Hashtable comRecordTable;               //继承属性
         private Hashtable argsTable;                    //参数列表，存储标识符和常量
         private List<string> threeCodeList;
         private List<SemanicError> semanicErrorList;
@@ -401,7 +400,6 @@ namespace LexicalAnalyzer
             string actionStr;
 
             synRecordTable = new Hashtable();
-            comRecordTable = new Hashtable();
             argsTable = new Hashtable();
             threeCodeList = new List<string>();
             semanicErrorList = new List<SemanicError>();
@@ -454,7 +452,7 @@ namespace LexicalAnalyzer
                 }
                 else if (symbol[0].ToString().Equals("#"))
                 {
-                    ActionRecord.excuteAction(symbol, comRecordTable, synRecordTable, symbolTable, argsTable, threeCodeList, semanicErrorList);
+                    ActionRecord.excuteAction(symbol, synRecordTable, symbolTable, argsTable, threeCodeList, semanicErrorList);
                     symbolStack.Pop();
                 }
                 else if (nSymbols.Contains(symbol))
@@ -462,11 +460,6 @@ namespace LexicalAnalyzer
                     if (!synRecordTable.Contains(symbol))
                     {
                         synRecordTable.Add(symbol, new SynRecord(symbol));
-                    }
-
-                    if (!comRecordTable.Contains(symbol))
-                    {
-                        comRecordTable.Add(symbol, new ComRecord(symbol));
                     }
 
                     if (!forecastTable.Contains(forecastKey))
