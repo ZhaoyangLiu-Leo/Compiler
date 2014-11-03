@@ -115,7 +115,7 @@ namespace LexicalAnalyzer
             {
                 threeCodeStr = threeCodeList[i];
                 index = threeCodeDataGridView.Rows.Add();
-                threeCodeDataGridView.Rows[index].Cells[0].Value = i;
+                threeCodeDataGridView.Rows[index].Cells[0].Value = i + 1;
                 threeCodeDataGridView.Rows[index].Cells[1].Value = threeCodeStr;
             }
         }

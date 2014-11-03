@@ -12,14 +12,30 @@ namespace LexicalAnalyzer
     class ActionRecord
     {
         public static ExcuteDelegate[] excuteDelegates = { action0, action1, action2, action3, action4, action5, action6, action7, 
-                                                           action8, action9, action10, action11, action12, action13, action14, action15, action16, 
-                                                           action17, action18, action19, action20, action21};
+                                                           action8, action9, action10, action11, action12, action13, action14, 
+                                                           action15, action16, action17, action18, action19, action20, action21,
+                                                           action22, action23, action24, action25, action26, action27, action28,
+                                                           action29, action30, action31, action32, action33, action34, action35,
+                                                           action36, action37 };
         private static int offset;
         private static string t;
         private static int w;
         private static int tempCount = 0;
+        private static int begin;
         private static Stack<string> tempStack = new Stack<string>();
+        private static Stack<HashSet<int>> trueSetStack = new Stack<HashSet<int>>();
+        private static Stack<HashSet<int>> falseSetStack = new Stack<HashSet<int>>();
 
+        /// <summary>
+        /// 执行action的总控程序，根据传入的字符串，判断调用的action
+        /// </summary>
+        /// <param name="actionName">action名</param>
+        /// <param name="comRecordTable"></param>
+        /// <param name="synRecordTable"></param>
+        /// <param name="symbolTable"></param>
+        /// <param name="argsTable"></param>
+        /// <param name="threeCodeList"></param>
+        /// <param name="semanicErrorList"></param>
         public static void excuteAction(string actionName, Hashtable comRecordTable, Hashtable synRecordTable,
             Hashtable symbolTable, Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
         {
@@ -28,6 +44,8 @@ namespace LexicalAnalyzer
             excuteDelegates[actionIndex](comRecordTable, synRecordTable, symbolTable, argsTable, threeCodeList, semanicErrorList);
         }
 
+        //
+        
         private static void action0(Hashtable comRecordTable, Hashtable synRecordTable, Hashtable symbolTable,
             Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
         {
@@ -264,8 +282,180 @@ namespace LexicalAnalyzer
         private static void action22(Hashtable comRecordTable, Hashtable synRecordTable, Hashtable symbolTable,
             Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
         {
+            HashSet<int> trueSet = new HashSet<int>();
+            HashSet<int> falseSet = new HashSet<int>();
+            string relop = (synRecordTable["rel"] as SynRecord).SynAttr["value"] as string;
+            string e2 = tempStack.Pop();
+            string e1 = tempStack.Pop();
+            trueSet.Add(threeCodeList.Count + 1);
+            falseSet.Add(threeCodeList.Count + 2);
+            trueSetStack.Push(trueSet);
+            falseSetStack.Push(falseSet);
+            threeCodeList.Add("if " + e1 + " " + relop + " " + e2 + " goto ");
+            threeCodeList.Add("goto ");
+        }
+
+        private static void action23(Hashtable comRecordTable, Hashtable synRecordTable, Hashtable symbolTable,
+           Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
+        {
+            HashSet<int> trueSet = new HashSet<int>();
+            HashSet<int> falseSet = new HashSet<int>();
+            string relop = (synRecordTable["rel"] as SynRecord).SynAttr["value"] as string;
+            string e2 = tempStack.Pop();
+            string e1 = tempStack.Pop();
+            trueSet.Add(threeCodeList.Count + 2);
+            falseSet.Add(threeCodeList.Count + 1);
+            trueSetStack.Push(trueSet);
+            falseSetStack.Push(falseSet);
+            threeCodeList.Add("if " + e1 + " " + relop + " " + e2 + " goto ");
+            threeCodeList.Add("goto ");
+        }
+
+        private static void action24(Hashtable comRecordTable, Hashtable synRecordTable, Hashtable symbolTable,
+           Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
+        {
+            string bool_operator = (synRecordTable["bool_operator"] as SynRecord).SynAttr["value"] as string;
+            if (bool_operator.Equals("||"))
+            {
+                HashSet<int> falseSet2 = falseSetStack.Pop();
+                HashSet<int> falseSet1 = falseSetStack.Pop();
+                HashSet<int> trueSet2 = trueSetStack.Pop();
+                HashSet<int> trueSet1 = trueSetStack.Pop();
+                SynRecord synRecord = synRecordTable["M"] as SynRecord;
+                string quad = synRecord.SynAttr["quad"] as string;
+
+                foreach (int i in falseSet1)
+                {
+                    threeCodeList[i - 1] = threeCodeList[i - 1] + quad;
+                }
+                trueSet1.UnionWith(trueSet2);
+                trueSetStack.Push(trueSet1);
+                falseSetStack.Push(falseSet2);
+
+            }
+            else if (bool_operator.Equals("&&"))
+            {
+                HashSet<int> trueSet2 = trueSetStack.Pop();
+                HashSet<int> trueSet1 = trueSetStack.Pop();
+                HashSet<int> falseSet2 = falseSetStack.Pop();
+                HashSet<int> falseSet1 = falseSetStack.Pop();
+                SynRecord synRecord = synRecordTable["M"] as SynRecord;
+                string quad = synRecord.SynAttr["quad"] as string;
+
+                foreach (int i in trueSet1)
+                {
+                    threeCodeList[i - 1] = threeCodeList[i - 1] + quad;
+                }
+                trueSetStack.Push(trueSet2);
+                falseSet1.UnionWith(falseSet2);
+                falseSetStack.Push(falseSet1);
+            }
+            else { } 
 
         }
+
+        private static void action25(Hashtable comRecordTable, Hashtable synRecordTable, Hashtable symbolTable,
+           Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
+        {
+            SynRecord synRecord = synRecordTable["M"] as SynRecord;
+            add2Table(synRecord.SynAttr, "quad", (threeCodeList.Count + 1).ToString());
+        }
+
+        private static void action26(Hashtable comRecordTable, Hashtable synRecordTable, Hashtable symbolTable,
+           Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
+        {
+            HashSet<int> trueSet = trueSetStack.Pop();
+            foreach (int i in trueSet)
+            {
+                threeCodeList[i - 1] = threeCodeList[i - 1] + (threeCodeList.Count + 1).ToString();
+            }
+        }
+
+        private static void action27(Hashtable comRecordTable, Hashtable synRecordTable, Hashtable symbolTable,
+           Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
+        {
+            SynRecord synRecord = synRecordTable["bool_operator"] as SynRecord;
+            add2Table(synRecord.SynAttr, "value", "&&");
+        }
+
+        private static void action28(Hashtable comRecordTable, Hashtable synRecordTable, Hashtable symbolTable,
+           Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
+        {
+            SynRecord synRecord = synRecordTable["bool_operator"] as SynRecord;
+            add2Table(synRecord.SynAttr, "value", "||");
+        }
+
+        private static void action29(Hashtable comRecordTable, Hashtable synRecordTable, Hashtable symbolTable,
+            Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
+        {
+            add2Relop(synRecordTable, argsTable);
+        }
+
+        private static void action30(Hashtable comRecordTable, Hashtable synRecordTable, Hashtable symbolTable,
+            Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
+        {
+            add2Relop(synRecordTable, argsTable);
+        }
+
+        private static void action31(Hashtable comRecordTable, Hashtable synRecordTable, Hashtable symbolTable,
+            Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
+        {
+            add2Relop(synRecordTable, argsTable);
+        }
+
+        private static void action32(Hashtable comRecordTable, Hashtable synRecordTable, Hashtable symbolTable,
+            Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
+        {
+            add2Relop(synRecordTable, argsTable);
+        }
+
+        private static void action33(Hashtable comRecordTable, Hashtable synRecordTable, Hashtable symbolTable,
+            Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
+        {
+            add2Relop(synRecordTable, argsTable);
+        }
+
+        private static void action34(Hashtable comRecordTable, Hashtable synRecordTable, Hashtable symbolTable,
+            Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
+        {
+            add2Relop(synRecordTable, argsTable);
+        }
+
+        private static void action35(Hashtable comRecordTable, Hashtable synRecordTable, Hashtable symbolTable,
+           Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
+        {
+            HashSet<int> falseSet = falseSetStack.Pop();
+            foreach (int i in falseSet)
+            {
+                threeCodeList[i - 1] = threeCodeList[i - 1] + (threeCodeList.Count + 1).ToString();
+            }
+        }
+
+        private static void action36(Hashtable comRecordTable, Hashtable synRecordTable, Hashtable symbolTable,
+           Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
+        {
+            begin = threeCodeList.Count + 1;
+        }
+
+        private static void action37(Hashtable comRecordTable, Hashtable synRecordTable, Hashtable symbolTable,
+           Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
+        {
+            threeCodeList.Add("goto " + begin);
+            HashSet<int> falseSet = falseSetStack.Pop();
+            foreach (int i in falseSet)
+            {
+                threeCodeList[i - 1] = threeCodeList[i - 1] + (threeCodeList.Count + 1).ToString();
+            }
+        }
+
+        private static void add2Relop(Hashtable synRecordTable, Hashtable argsTable)
+        {
+            string relop = argsTable["relop"] as string;
+            SynRecord synRecord = synRecordTable["rel"] as SynRecord;
+            add2Table(synRecord.SynAttr, "value", relop);
+        }
+
+
 
         /// <summary>
         /// 添加或者修改hashtable的属性

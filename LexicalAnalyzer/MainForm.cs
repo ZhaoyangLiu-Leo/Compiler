@@ -408,6 +408,7 @@ namespace LexicalAnalyzer
             argsTable.Add("IDN", new Stack<string>());
             argsTable.Add("const", new Stack<string>());
             argsTable.Add("lineIndex", "");
+            argsTable.Add("relop", "");
 
             symbolStack.Push("@");
             symbolStack.Push("S");
@@ -436,6 +437,10 @@ namespace LexicalAnalyzer
                     {
                         Stack<string> constStack = argsTable["const"] as Stack<string>;
                         constStack.Push(tokenResList[tokenIndex].Token.TokenValue);
+                    }
+                    if (ConstTable.isRelop(symbol))
+                    {
+                        argsTable["relop"] = symbol;
                     }
                     symbolStack.Pop();
                     tokenIndex++;
