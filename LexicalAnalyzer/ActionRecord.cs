@@ -89,6 +89,9 @@ namespace LexicalAnalyzer
             w = Convert.ToInt32(synRecord.SynAttr["width"] as string);
         }
 
+        /// <summary>
+        /// 将type传递给array
+        /// </summary>
         private static void action3(Hashtable synRecordTable, Hashtable symbolTable,
             Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
         {
@@ -98,6 +101,9 @@ namespace LexicalAnalyzer
             add2Table(typeSynRecord.SynAttr, "width", arraySynRecord.SynAttr["width"] as string);
         }
 
+        /// <summary>
+        /// 用int赋值type
+        /// </summary>
         private static void action4(Hashtable synRecordTable, Hashtable symbolTable,
             Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
         {
@@ -106,6 +112,9 @@ namespace LexicalAnalyzer
             add2Table(synRecord.SynAttr, "width", "4");
         }
 
+        /// <summary>
+        /// 用short赋值type
+        /// </summary>
         private static void action5(Hashtable synRecordTable, Hashtable symbolTable,
             Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
         {
@@ -114,6 +123,9 @@ namespace LexicalAnalyzer
             add2Table(synRecord.SynAttr, "width", "2");
         }
 
+        /// <summary>
+        /// 用long赋值type
+        /// </summary>
         private static void action6(Hashtable synRecordTable, Hashtable symbolTable,
             Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
         {
@@ -122,6 +134,9 @@ namespace LexicalAnalyzer
             add2Table(synRecord.SynAttr, "width", "4");
         }
 
+        /// <summary>
+        /// 用char赋值type
+        /// </summary>
         private static void action7(Hashtable synRecordTable, Hashtable symbolTable,
             Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
         {
@@ -130,6 +145,9 @@ namespace LexicalAnalyzer
             add2Table(synRecord.SynAttr, "width", "1");
         }
 
+        /// <summary>
+        /// 用float赋值type
+        /// </summary>
         private static void action8(Hashtable synRecordTable, Hashtable symbolTable,
             Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
         {
@@ -138,6 +156,9 @@ namespace LexicalAnalyzer
             add2Table(synRecord.SynAttr, "width", "4");
         }
 
+        /// <summary>
+        /// 用double赋值type
+        /// </summary>
         private static void action9(Hashtable synRecordTable, Hashtable symbolTable,
             Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
         {
@@ -146,6 +167,9 @@ namespace LexicalAnalyzer
             add2Table(synRecord.SynAttr, "width", "8");
         }
 
+        /// <summary>
+        /// 给array赋值type属性和width属性
+        /// </summary>
         private static void action10(
             Hashtable synRecordTable, Hashtable symbolTable,
             Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
@@ -155,6 +179,9 @@ namespace LexicalAnalyzer
             add2Table(synRecord.SynAttr, "width", w.ToString());
         }
 
+        /// <summary>
+        /// 对array的type属性和宽度的嵌套计算
+        /// </summary>
         private static void action11(Hashtable synRecordTable, Hashtable symbolTable,
             Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
         {
@@ -164,6 +191,11 @@ namespace LexicalAnalyzer
             add2Table(synRecord.SynAttr, "width", (Convert.ToInt32(num) * Convert.ToInt32(synRecord.SynAttr["width"] as string)).ToString());
         }
 
+        //action12-action21，赋值语句的指导翻译实现
+
+        /// <summary>
+        /// 将表达式结果赋值给标识符
+        /// </summary>
         private static void action12(Hashtable synRecordTable, Hashtable symbolTable,
             Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
         {
@@ -182,6 +214,9 @@ namespace LexicalAnalyzer
             }
         }
 
+        /// <summary>
+        /// 将expression'的属性赋值给expression
+        /// </summary>
         private static void action13(Hashtable synRecordTable, Hashtable symbolTable,
             Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
         {
@@ -202,6 +237,9 @@ namespace LexicalAnalyzer
             tempCount++;
         }
 
+        /// <summary>
+        /// 将item的属性赋值给expression'
+        /// </summary>
         private static void action15(Hashtable synRecordTable, Hashtable symbolTable,
             Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
         {
@@ -210,6 +248,9 @@ namespace LexicalAnalyzer
             add2Table(synRecord.SynAttr, "addr", addr);
         }
 
+        /// <summary>
+        /// 将expression'的属性赋值给item
+        /// </summary>
         private static void action16(Hashtable synRecordTable, Hashtable symbolTable,
            Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
         {
@@ -248,6 +289,9 @@ namespace LexicalAnalyzer
             tempStack.Push(addr);
         }
 
+        /// <summary>
+        /// 将IDN赋值给factor
+        /// </summary>
         private static void action20(Hashtable synRecordTable, Hashtable symbolTable,
             Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
         {
@@ -271,6 +315,9 @@ namespace LexicalAnalyzer
             }
         }
 
+        /// <summary>
+        /// 将常量赋值给factor
+        /// </summary>
         private static void action21(Hashtable synRecordTable, Hashtable symbolTable,
             Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
         {
@@ -289,6 +336,10 @@ namespace LexicalAnalyzer
             }
         }
 
+        //action22-action34，负责控制流语句的制导翻译过程
+        /// <summary>
+        /// 维护布尔表达式的truelist
+        /// </summary>
         private static void action22(Hashtable synRecordTable, Hashtable symbolTable,
            Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
         {
@@ -359,6 +410,9 @@ namespace LexicalAnalyzer
             threeCodeList.Add("goto ");
         }
 
+        /// <summary>
+        /// 回填带逻辑运算符的布尔表达式的truelist和falselist
+        /// </summary>
         private static void action28(Hashtable synRecordTable, Hashtable symbolTable,
            Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
         {
@@ -409,6 +463,9 @@ namespace LexicalAnalyzer
             add2Table(synRecord.SynAttr, "quad", (threeCodeList.Count + 1).ToString());
         }
 
+        /// <summary>
+        /// 布尔运算符的制导翻译
+        /// </summary>
         private static void action30(Hashtable synRecordTable, Hashtable symbolTable,
            Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
         {
@@ -416,6 +473,9 @@ namespace LexicalAnalyzer
             add2Table(synRecord.SynAttr, "value", "&&");
         }
 
+        /// <summary>
+        /// 布尔运算符的制导翻译
+        /// </summary>
         private static void action31(Hashtable synRecordTable, Hashtable symbolTable,
            Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
         {
@@ -423,6 +483,9 @@ namespace LexicalAnalyzer
             add2Table(synRecord.SynAttr, "value", "||");
         }
 
+        /// <summary>
+        /// 关系运算符的制导翻译
+        /// </summary>
         private static void action32(Hashtable synRecordTable, Hashtable symbolTable,
             Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
         {
@@ -436,13 +499,20 @@ namespace LexicalAnalyzer
             threeCodeList.Add("goto ");
         }
 
+        /// <summary>
+        /// 回填布尔表达式整体的结束
+        /// </summary>
         private static void action34(Hashtable synRecordTable, Hashtable symbolTable,
            Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
         {
             threeCodeList[offBegin] += threeCodeList.Count + 1;
         }
 
-
+        /// <summary>
+        /// 根据总控程序传来的关系运算符，添加到综合属性table
+        /// </summary>
+        /// <param name="synRecordTable"></param>
+        /// <param name="argsTable"></param>
         private static void add2Relop(Hashtable synRecordTable, Hashtable argsTable)
         {
             string relop = argsTable["relop"] as string;
