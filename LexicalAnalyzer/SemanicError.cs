@@ -7,8 +7,8 @@ namespace LexicalAnalyzer
 {
     public class SemanicError
     {
-        private string lineIndex;
-        private string errorInfo;
+        private string lineIndex;               //语义错误的行号
+        private string errorInfo;               //错误信息
 
         public SemanicError(string lineIndex, string errorInfo)
         {

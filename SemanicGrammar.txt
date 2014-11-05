@@ -26,7 +26,7 @@ factor -> INT10 #act21
 excute_stmt -> flow_of_control_stmt
 flow_of_control_stmt -> if ( bool_expression ) #act22 { excute_stmts } else_stmt
 flow_of_control_stmt -> while #act23 ( bool_expression ) #act22 { excute_stmts #act24 }
-else_stmt -> else #act25 { excute_stmts }
+else_stmt -> #act33 else #act25 { excute_stmts #act34 }
 else_stmt -> $ #act25
 bool_expression -> expression rel expression #act26 bool_expression'
 bool_expression -> ! expression rel expression #act27 bool_expression'
