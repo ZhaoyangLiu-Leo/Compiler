@@ -17,13 +17,14 @@ namespace LexicalAnalyzer
                                                            action8, action9, action10, action11, action12, action13, action14, 
                                                            action15, action16, action17, action18, action19, action20, action21,
                                                            action22, action23, action24, action25, action26, action27, action28,
-                                                           action29, action30, action31, action32 };
+                                                           action29, action30, action31, action32, action33, action34 };
 
         private static int offset;                  //全局编译量
         private static string t;                    //记录数据类型
         private static int w;                       //记录数据类型的宽度
         private static int tempCount = 0;           //记录临时变量的编号
         private static int begin;                   //记录while语句的开始位置
+        private static int offBegin;                //记录else语句的开始位置
         private static Stack<string> tempStack = new Stack<string>();                           //记录四则运算的结果
         private static Stack<HashSet<int>> trueSetStack = new Stack<HashSet<int>>();            //记录布尔表达式的truelist
         private static Stack<HashSet<int>> falseSetStack = new Stack<HashSet<int>>();           //记录布尔表达式的falselist
@@ -426,6 +427,19 @@ namespace LexicalAnalyzer
             Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
         {
             add2Relop(synRecordTable, argsTable);
+        }
+
+        private static void action33(Hashtable synRecordTable, Hashtable symbolTable,
+           Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
+        {
+            offBegin = threeCodeList.Count;
+            threeCodeList.Add("goto ");
+        }
+
+        private static void action34(Hashtable synRecordTable, Hashtable symbolTable,
+           Hashtable argsTable, List<string> threeCodeList, List<SemanicError> semanicErrorList)
+        {
+            threeCodeList[offBegin] += threeCodeList.Count + 1;
         }
 
 
